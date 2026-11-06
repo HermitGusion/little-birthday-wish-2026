@@ -88,6 +88,7 @@ function showScene(name) {
   });
   app.classList.toggle('is-finale', name === 'cake');
   app.classList.toggle('is-notes', name === 'notes');
+  document.querySelector('meta[name="theme-color"]').content = name === 'notes' ? '#f8e5e0' : '#171b24';
   document.querySelectorAll('.scene.is-exiting').forEach(scene => scene.classList.remove('is-exiting'));
   if (name === 'notes') requestAnimationFrame(() => requestAnimationFrame(() => {
     if (scenes.notes.classList.contains('is-active')) scenes.notes.classList.add('is-building');
