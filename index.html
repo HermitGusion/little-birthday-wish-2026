@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+  <meta name="theme-color" content="#fff8f1">
+  <meta name="description" content="三根数字蜡烛、心形祝福便签和一只漫画蛋糕，送你一份小小的生日惊喜。">
+  <title>今天，所有美好都为你而来 · 生日快乐</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <div class="ambient ambient--one" aria-hidden="true"></div>
+    <div class="ambient ambient--two" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <span class="wordmark"><span class="wordmark__icon" aria-hidden="true">✳</span> A LITTLE WISH <span class="wordmark__icon" aria-hidden="true">✳</span></span>
+      <span class="topbar__date">JUST FOR YOU <span aria-hidden="true">♡</span></span>
+    </header>
+
+    <main id="experience" class="experience">
+      <section id="scene-candles" class="scene scene--candles is-active" aria-labelledby="candle-title">
+        <div class="eyebrow"><span class="eyebrow__line"></span> 一份只属于你的惊喜 <span class="eyebrow__line"></span></div>
+        <h1 id="candle-title" class="hero-title">今天，<span>为你点亮</span><br>一场小小的庆祝。</h1>
+        <p class="scene-intro">先许一个愿望吧。接下来的每一秒，都送给你。</p>
+        <div class="candle-stage" role="img" aria-label="三根点亮的数字蜡烛，依次倒数三、二、一">
+          <span class="stage-star stage-star--one" aria-hidden="true">✦</span>
+          <span class="stage-star stage-star--two" aria-hidden="true">✳</span>
+          <span class="stage-star stage-star--three" aria-hidden="true">✧</span>
+          <div class="candle-row" aria-hidden="true">
+            <div class="number-candle number-candle--three" data-number="3"><span class="flame"></span><span class="wick"></span><span class="wax">3</span></div>
+            <div class="number-candle number-candle--two" data-number="2"><span class="flame"></span><span class="wick"></span><span class="wax">2</span></div>
+            <div class="number-candle number-candle--one" data-number="1"><span class="flame"></span><span class="wick"></span><span class="wax">1</span></div>
+          </div>
+          <div class="cake-plate" aria-hidden="true"><span class="cake-plate__top"></span><span class="cake-plate__base"></span></div>
+          <div class="stage-caption" aria-hidden="true">MAKE A WISH <span>✳</span> MAKE IT COUNT</div>
+        </div>
+        <p id="countdown-status" class="sr-only" aria-live="polite"></p>
+        <button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button>
+        <p class="helper-text">轻轻点一下，故事就开始了</p>
+      </section>
+
+      <section id="scene-notes" class="scene scene--notes" aria-labelledby="notes-title" aria-hidden="true" inert>
+        <div class="eyebrow"><span class="eyebrow__line"></span> 写给今天最特别的你 <span class="eyebrow__line"></span></div>
+        <h2 id="notes-title" class="section-title">把所有的祝福，<span>拼成一颗心。</span></h2>
+        <p class="scene-intro">一张一张，都是想对你说的话。</p>
+        <div id="heart-board" class="heart-board" role="img" aria-label="写着生日祝福的便签逐张展开，拼成一颗心">
+          <div class="heart-board__glow" aria-hidden="true"></div>
+          <svg class="heart-board__outline" viewBox="0 0 500 500" aria-hidden="true" focusable="false"><path d="M250 434C205 397 53 300 53 182c0-75 52-119 115-119 38 0 67 19 82 46 15-27 44-46 82-46 63 0 115 44 115 119 0 118-152 215-197 252Z"/></svg>
+          <div class="heart-board__center" aria-hidden="true"><span>给最特别的你</span><strong>生日快乐</strong><span class="heart-board__tiny">with all my love ♡</span></div>
+          <div id="notes-container" class="notes-container" aria-hidden="true"></div>
+          <span class="heart-board__spark heart-board__spark--one" aria-hidden="true">✧</span>
+          <span class="heart-board__spark heart-board__spark--two" aria-hidden="true">✦</span>
+        </div>
+        <p class="notes-footer">世界很大，愿你永远被爱包围。 <span aria-hidden="true">♡</span></p>
+      </section>
+
+      <section id="scene-cake" class="scene scene--cake" aria-labelledby="cake-title" aria-hidden="true" inert>
+        <div class="eyebrow"><span class="eyebrow__line"></span> THE BEST DAY IS YOUR DAY <span class="eyebrow__line"></span></div>
+        <div class="cake-art" role="img" aria-label="一只插着蜡烛、裹着草莓奶油的漫画生日蛋糕">
+          <span class="cake-art__spark cake-art__spark--a" aria-hidden="true">✦</span>
+          <span class="cake-art__spark cake-art__spark--b" aria-hidden="true">✳</span>
+          <span class="cake-art__spark cake-art__spark--c" aria-hidden="true">✧</span>
+          <svg class="cake-svg" viewBox="0 0 440 370" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="cake-side" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#ffaeb5"/><stop offset="1" stop-color="#ec708d"/></linearGradient>
+              <linearGradient id="icing" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffefa"/><stop offset="1" stop-color="#fff0dc"/></linearGradient>
+            </defs>
+            <ellipse cx="220" cy="335" rx="158" ry="22" fill="#e7beae" opacity=".45"/>
+            <path d="M49 300c0-16 76-29 171-29s171 13 171 29v21c0 18-76 31-171 31S49 339 49 321z" fill="#dfd6e4" stroke="#7b4557" stroke-width="4"/>
+            <ellipse cx="220" cy="300" rx="171" ry="29" fill="#fff9fc" stroke="#7b4557" stroke-width="4"/>
+            <path d="M88 181h264v111c0 20-59 36-132 36S88 312 88 292z" fill="url(#cake-side)" stroke="#7b4557" stroke-width="5"/>
+            <path d="M88 229c50 25 210 25 264 0M88 272c62 24 198 24 264 0" fill="none" stroke="#fcd8c1" stroke-width="10" opacity=".84"/>
+            <path d="M88 179c0-30 59-52 132-52s132 22 132 52v33c-6 13-15 9-19 2-8-14-16-10-21 7-5 17-17 15-21-2-4-13-14-13-19 2-6 19-18 20-22 0-6-23-23-22-27 0-4 20-16 18-21 1-5-18-17-17-21 3-5 20-18 19-22 0-4-17-14-17-18 1-5 18-16 16-22 1-6-16-16-20-22-4z" fill="url(#icing)" stroke="#7b4557" stroke-width="5" stroke-linejoin="round"/>
+            <ellipse cx="220" cy="177" rx="132" ry="51" fill="#fffaf0" stroke="#7b4557" stroke-width="5"/>
+            <path d="M103 179c34-46 198-62 237 2" fill="none" stroke="#fff" stroke-width="8" opacity=".68" stroke-linecap="round"/>
+            <path d="M147 148c-16-27 25-39 26-12 1 21-19 30-26 12zM273 140c-7-21 24-29 29-8 4 18-21 27-29 8z" fill="#fa6381" stroke="#7b4557" stroke-width="4"/>
+            <path d="M158 127q-5-13-16-13M289 122q6-13 16-13" fill="none" stroke="#5e9c76" stroke-width="4" stroke-linecap="round"/>
+            <ellipse cx="159" cy="136" rx="4" ry="7" fill="#fff" opacity=".75"/><ellipse cx="285" cy="128" rx="4" ry="6" fill="#fff" opacity=".75"/>
+            <circle cx="206" cy="165" r="5" fill="#f3ad65"/><circle cx="247" cy="158" r="5" fill="#f3ad65"/><circle cx="237" cy="184" r="4" fill="#fa8194"/><circle cx="180" cy="179" r="4" fill="#a3ba87"/>
+            <path d="M183 250q9-10 18 0m38 0q9-10 18 0m-55 20q18 18 36 0" fill="none" stroke="#7b4557" stroke-width="5" stroke-linecap="round"/>
+            <ellipse cx="156" cy="263" rx="10" ry="5" fill="#f47d95" opacity=".75"/><ellipse cx="285" cy="263" rx="10" ry="5" fill="#f47d95" opacity=".75"/>
+            <path d="M215 118V58h12v60" fill="#ffe89a" stroke="#7b4557" stroke-width="4"/><path d="M215 84h12m-12 19h12" stroke="#ff8eab" stroke-width="4"/>
+            <path d="M221 56V44" stroke="#7b4557" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="cake-art__flame" aria-hidden="true"></span>
+          <div id="confetti" class="confetti" aria-hidden="true"></div>
+        </div>
+        <div class="cake-message">
+          <span class="script-label">Happy Birthday!</span>
+          <h2 id="cake-title" class="final-title"><span id="recipient">亲爱的你</span>，生日快乐<span aria-hidden="true"> ♡</span></h2>
+          <p id="final-wish" class="final-wish">愿新的一岁，心有所爱，眼里有光，所有好事都如约而至。</p>
+          <div class="cake-actions">
+            <button id="replay-button" class="button button--primary" type="button">再看一遍 <span aria-hidden="true">↺</span></button>
+            <button id="share-button" class="button button--outline" type="button">复制祝福链接 <span aria-hidden="true">↗</span></button>
+          </div>
+          <p id="share-feedback" class="helper-text" role="status">把这份快乐，也送给你喜欢的人</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-footer"><span>MADE WITH ♡</span><span id="progress-label">01 / 03 · 点亮愿望</span></footer>
+    <button id="skip-button" class="skip-button" type="button" hidden>跳过动画 →</button>
+  </div>
+</body>
+</html>
