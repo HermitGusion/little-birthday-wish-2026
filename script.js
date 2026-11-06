@@ -61,8 +61,6 @@ const countdownStatus = document.getElementById('countdown-status');
 const startButton = document.getElementById('start-button');
 const skipButton = document.getElementById('skip-button');
 const replayButton = document.getElementById('replay-button');
-const shareButton = document.getElementById('share-button');
-const shareFeedback = document.getElementById('share-feedback');
 const progressLabel = document.getElementById('progress-label');
 const candles = [...document.querySelectorAll('.number-candle')];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -135,12 +133,12 @@ wishes.forEach(([label, fullWish], i) => {
   note.className = 'note';
   const bar = document.createElement('span');
   bar.className = 'note__bar';
-  bar.textContent = `✦   祝福 ${String(i + 1).padStart(2, '0')}                         ×`;
+  bar.textContent = '✦   写给你';
   const body = document.createElement('span');
   body.className = 'note__body';
   body.textContent = label;
   note.append(bar, body);
-  note.setAttribute('aria-label', `祝福${i + 1}：${fullWish}`);
+  note.setAttribute('aria-label', fullWish);
   note.style.setProperty('--note-bg', colors[i % colors.length]);
   note.style.setProperty('--rotate', `${[-4, 2, 0, 3, -2, 1][i % 6]}deg`);
   note.style.setProperty('--delay', `${i * 72}ms`);
@@ -150,7 +148,7 @@ wishes.forEach(([label, fullWish], i) => {
     scenes.notes.classList.add('is-reading', 'is-assembled');
     document.querySelector('.note.is-selected')?.classList.remove('is-selected');
     note.classList.add('is-selected');
-    readerLabel.textContent = `第 ${i + 1} 张祝福 · ${label}`;
+    readerLabel.textContent = label;
     readerText.textContent = fullWish;
   });
   noteContainer.append(note);
@@ -170,15 +168,68 @@ positionNotes();
 if ('ResizeObserver' in window) new ResizeObserver(positionNotes).observe(heartBoard);
 else window.addEventListener('resize', positionNotes);
 
-// 祝福文字本身构成蛋糕的整块底图；只构建一次，重播不叠加 DOM。
+// 完整祝福句自由叠成底图。固定种子使重播和调整屏幕时保持同一幅构图。
+const backgroundWishes = [
+  '愿你每一天醒来，都有值得期待的小事。', '愿你想见的人，都能很快见面。',
+  '愿新的一岁，有人陪你吃饭，也有人听你说话。', '愿你的认真，总能得到温柔的回应。',
+  '愿你喜欢的事，都有时间慢慢去做。', '愿你走过的路，一路都有好风景。',
+  '愿你忙碌之后，总有一盏灯为你亮着。', '愿你不用赶路，也能遇见想看的风景。',
+  '愿你笑的时候，身边的人也跟着开心。', '愿你每一次出发，都能平安回家。',
+  '愿那些悄悄许下的愿望，真的慢慢实现。', '愿你有说走就走的勇气，也有安心停留的地方。',
+  '愿你每晚睡得踏实，每天醒来都有精神。', '愿你在平常的日子，也能发现一点甜。',
+  '愿你不必逞强，难过的时候有人抱抱你。', '愿你爱的人，一直健康地陪在身边。',
+  '愿你往后的生日，都有喜欢的人一起过。', '愿时间慢一点，让你多收集一些快乐。',
+  '愿你去到想去的地方，看到没看过的世界。', '愿你始终有力气，好好照顾自己。',
+  '愿你所有的付出，都有值得的结果。', '愿你今天收到的喜欢，往后每天都有。',
+  '愿你保留好奇，也保留做自己的底气。', '愿生活偶尔的小惊喜，总能被你撞见。',
+  '愿你吃得好、睡得香，日子越过越舒心。', '愿你回头看时，心里都是暖暖的回忆。',
+  '愿你每次抬头，都能看见一点新的希望。', '愿你身边总有真诚的人，把你放在心上。',
+  '愿你不慌不忙，也能过上自己喜欢的生活。', '愿你经历风雨之后，依然相信美好。',
+  '愿你今天的笑容，能留在很久以后的回忆里。', '愿新的一岁，比过去更轻松，也更快乐。'
+];
+let fieldSeed = 601107;
+function fieldRandom() {
+  fieldSeed = (Math.imul(fieldSeed, 1664525) + 1013904223) >>> 0;
+  return fieldSeed / 4294967296;
+}
 const blessingField = document.getElementById('blessing-field');
-for (let i = 0; i < 192; i++) {
+for (let i = 0; i < 112; i++) {
   const line = document.createElement('span');
-  line.textContent = i % 7 === 0 ? wishes[i % wishes.length][1] : wishes[(i * 17 + Math.floor(i / 9)) % wishes.length][0] + ' · ' + wishes[(i * 11 + 3) % wishes.length][0];
-  line.style.setProperty('--field-delay', `${(i % 15) * 78}ms`);
-  line.style.setProperty('--field-color', ['#ffe1ed', '#d6c5ff', '#ffdeb1', '#cce6db'][i % 4]);
+  line.textContent = backgroundWishes[(i * 13 + Math.floor(i / backgroundWishes.length)) % backgroundWishes.length];
+  const depth = fieldRandom();
+  line.style.left = `${-8 + fieldRandom() * 100}%`;
+  line.style.top = `${-2 + fieldRandom() * 96}%`;
+  line.style.setProperty('--sentence-size', `${9 + depth * 7}px`);
+  line.style.setProperty('--sentence-alpha', (.07 + depth ** 3 * .48).toFixed(3));
+  line.style.setProperty('--sentence-width', `${15 + fieldRandom() * 11}em`);
+  line.style.setProperty('--sentence-angle', `${-17 + fieldRandom() * 34}deg`);
+  line.style.setProperty('--field-color', ['#f5dfc2', '#e7bbbf', '#c6bbd4', '#c2d3cb'][i % 4]);
   blessingField.append(line);
 }
+
+// 自绘圆角糖霜数字，轮廓不依赖设备字体。
+const cartoonDigits = [
+  { path: 'M48 45C81 17 133 35 130 76Q126 105 94 110C148 109 151 166 120 188Q83 216 45 186', color: '#5bd5e5', shade: '#268ca8', face: [114, 68] },
+  { path: 'M42 62C45 4 142 13 138 72C137 111 67 128 45 180L141 180', color: '#b6e567', shade: '#6b9c44', face: [92, 36] },
+  { path: 'M59 62L95 32L95 190M57 190L135 190', color: '#ffcf66', shade: '#bf8a36', face: [95, 108] }
+];
+candles.forEach((candle, i) => {
+  const digit = cartoonDigits[i];
+  const [x, y] = digit.face;
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 180 230');
+  svg.setAttribute('class', 'cartoon-digit');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = `<g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="${digit.path}" stroke="${digit.shade}" stroke-width="48" transform="translate(0 6)"/>
+    <path d="${digit.path}" stroke="#fff6e8" stroke-width="45"/>
+    <path d="${digit.path}" stroke="${digit.color}" stroke-width="34"/>
+    <path d="${digit.path}" stroke="#fff" stroke-opacity=".55" stroke-width="4" stroke-dasharray="0 24"/>
+    <path d="M${x-7} ${y}v3m14-3v3" stroke="#51444b" stroke-width="3.4"/>
+    <path d="M${x-3} ${y+9}q3 3 6 0" stroke="#51444b" stroke-width="2.3"/>
+  </g><g fill="#ff9eaf" opacity=".74"><ellipse cx="${x-12}" cy="${y+7}" rx="3" ry="2"/><ellipse cx="${x+12}" cy="${y+7}" rx="3" ry="2"/></g>`;
+  candle.append(svg);
+});
 function makeConfetti() {
   const target = document.getElementById('confetti');
   target.replaceChildren();
@@ -210,9 +261,8 @@ function play() {
   scenes.candles.classList.add('has-started');
   scenes.notes.classList.remove('is-reading', 'is-assembled', 'is-building');
   document.getElementById('confetti').replaceChildren();
-  shareFeedback.textContent = '愿你喜欢这份小小的礼物';
   document.querySelector('.note.is-selected')?.classList.remove('is-selected');
-  readerLabel.textContent = '第一张祝福 · 写给你';
+  readerLabel.textContent = '写给你';
   readerText.textContent = wishes[0][1];
   showScene('candles');
   skipButton.hidden = false;
@@ -239,11 +289,4 @@ window.setTimeout(() => { if (!startButton.hidden) play(); }, 1500);
 replayButton.addEventListener('click', play);
 document.getElementById('next-button').addEventListener('click', finish);
 skipButton.addEventListener('click', finish);
-shareButton.addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(window.location.href);
-    shareFeedback.textContent = '链接已复制，快发给 TA 吧 ♡';
-  } catch {
-    shareFeedback.textContent = '请长按浏览器地址栏，复制这份祝福的链接';
-  }
-});
+

@@ -297,9 +297,8 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .scene--cake .eyebrow { display: none; }
 .cake-art { width: min(570px, 95vw); }
 .cake-art::before { filter: blur(18px); opacity: .3; background: #bd827a; }
-.blessing-field { inset: -14% -22%; opacity: 0; animation: field-appear 720ms var(--ease-out) 320ms forwards; mask-image: radial-gradient(ellipse at center, transparent 3%, #000 41%, #000 100%); }
-.blessing-field span { animation: none; opacity: .37; color: var(--field-color); font-size: clamp(7px, 1.1vw, 9px); }
-.blessing-field span:nth-child(6n) { opacity: .64; }
+.blessing-field { display: block; inset: -10% -20%; overflow: hidden; opacity: 0; animation: field-appear 720ms var(--ease-out) 320ms forwards; mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.42) 0, #000 48%, rgba(0,0,0,.65) 100%); }
+.blessing-field span, .blessing-field span:nth-child(6n) { position: absolute; display: block; width: min(var(--sentence-width), 85%); overflow: visible; white-space: normal; overflow-wrap: anywhere; animation: none; opacity: var(--sentence-alpha); color: var(--field-color); font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', 'Songti SC', serif; font-size: var(--sentence-size); font-weight: 400; letter-spacing: .03em; line-height: 1.65; transform: translateX(-24%) rotate(var(--sentence-angle)); transform-origin: 50% 50%; }
 @keyframes field-appear { to { opacity: 1; } }
 .cake-svg { filter: drop-shadow(0 0 5px rgba(255,187,114,.35)); }
 .cake-line { animation-duration: 1030ms; }
@@ -335,7 +334,8 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
   .note__body { font-size: 8px; }
   .note-reader { min-height: 80px; }
   .cake-art { width: min(390px, 98vw); }
-  .blessing-field { inset: -7% -3%; }
+  .blessing-field { inset: -10% -4%; }
+  .blessing-field span { font-size: calc(var(--sentence-size) * .82); }
 }
 @media (max-height: 690px) {
   .candle-stage { height: min(52svh, 310px); }
@@ -350,3 +350,12 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
   .blessing-field { animation: none; opacity: 1; }
   .cake-art__flame { animation: none; opacity: 1; }
 }
+
+/* 圆角糖霜数字：每个设备都用同一套手绘轮廓。 */
+.number-candle .wax, .number-candle::after { display: none; }
+.cartoon-digit { display: block; position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.number-candle .wick { z-index: 2; top: 5%; left: 49%; height: 13px; }
+.number-candle .flame { z-index: 3; top: -10%; left: 49%; }
+.number-candle--three .wick, .number-candle--three .flame { left: 51%; }
+.number-candle--two .wick, .number-candle--two .flame { left: 50%; }
+.number-candle--one .wick, .number-candle--one .flame { left: 53%; }
