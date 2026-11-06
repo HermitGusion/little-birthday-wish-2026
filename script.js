@@ -155,6 +155,8 @@ if (wish) document.getElementById('final-wish').textContent = wish;
 else document.getElementById('final-wish').textContent = defaultWish;
 
 startButton.addEventListener('click', play);
+// 无音频限制：打开链接后自动开始；仍可提前点按钮立即播放。
+window.setTimeout(() => { if (!startButton.hidden) play(); }, 1500);
 replayButton.addEventListener('click', play);
 skipButton.addEventListener('click', finish);
 shareButton.addEventListener('click', async () => {
