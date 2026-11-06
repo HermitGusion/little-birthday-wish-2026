@@ -50,7 +50,7 @@ const wishes = [
   ['甜甜生日', '愿今天的蛋糕甜，收到的祝福真，许下的心愿被认真听见；生日快乐！'],
   ['永远被爱', '愿你无论走到哪一站，都知道有人惦记你，也要记得先好好爱自己。']
 ];
-const defaultWish = '愿新的一岁，心有所爱，眼里有光。走过的路都有风景，遇见的人都带着善意；所有用心许下的愿望，终会以温柔的方式如约而至。';
+const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。今天这块蛋糕，先替我把祝福送到你面前。';
 const scenes = { candles: document.getElementById('scene-candles'), notes: document.getElementById('scene-notes'), cake: document.getElementById('scene-cake') };
 const app = document.getElementById('app');
 const heartBoard = document.getElementById('heart-board');
@@ -87,12 +87,18 @@ function showScene(name) {
     else scene.setAttribute('aria-hidden', 'true');
   });
   app.classList.toggle('is-finale', name === 'cake');
-  progressLabel.textContent = { candles: '01 / 03 · 点亮愿望', notes: '02 / 03 · 便签汇成心形', cake: '03 / 03 · 生日快乐' }[name];
+  app.classList.toggle('is-notes', name === 'notes');
+  document.querySelectorAll('.scene.is-exiting').forEach(scene => scene.classList.remove('is-exiting'));
+  if (name === 'notes') requestAnimationFrame(() => requestAnimationFrame(() => {
+    if (scenes.notes.classList.contains('is-active')) scenes.notes.classList.add('is-building');
+  }));
+  progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), notes: '祝福正在抵达', cake: '生日快乐' }[name];
   skipButton.hidden = name === 'cake' || name === 'candles' && !startButton.hidden;
 }
 function setCandle(index) {
   candles.forEach((candle, i) => candle.classList.toggle('is-current', i === index));
   countdownStatus.textContent = index < 0 ? '愿望已收到' : `倒数${['三', '二', '一'][index]}`;
+  if (index >= 0) progressLabel.textContent = `倒数 · ${candles[index].dataset.number}`;
 }
 
 // 等弧长取样：40 多张便利贴连起来就是心形轮廓，完全不借助心形线条。
@@ -126,14 +132,21 @@ wishes.forEach(([label, fullWish], i) => {
   const note = document.createElement('button');
   note.type = 'button';
   note.className = 'note';
-  note.textContent = label;
-  note.title = fullWish;
+  const bar = document.createElement('span');
+  bar.className = 'note__bar';
+  bar.textContent = `✦   祝福 ${String(i + 1).padStart(2, '0')}                         ×`;
+  const body = document.createElement('span');
+  body.className = 'note__body';
+  body.textContent = label;
+  note.append(bar, body);
   note.setAttribute('aria-label', `祝福${i + 1}：${fullWish}`);
   note.style.setProperty('--note-bg', colors[i % colors.length]);
-  note.style.setProperty('--rotate', `${[-9, 5, -4, 7, -6, 3][i % 6]}deg`);
-  note.style.setProperty('--delay', `${i * 105}ms`);
+  note.style.setProperty('--rotate', `${[-4, 2, 0, 3, -2, 1][i % 6]}deg`);
+  note.style.setProperty('--delay', `${i * 72}ms`);
+  note.style.zIndex = String(i + 1);
   note.addEventListener('click', () => {
     cancelTimeline(); // 阅读便利贴时暂停自动翻页。
+    scenes.notes.classList.add('is-reading', 'is-assembled');
     document.querySelector('.note.is-selected')?.classList.remove('is-selected');
     note.classList.add('is-selected');
     readerLabel.textContent = `第 ${i + 1} 张祝福 · ${label}`;
@@ -147,6 +160,9 @@ function positionNotes() {
     const point = positions[i];
     note.style.setProperty('--dx', `${Math.round(point.x * width)}px`);
     note.style.setProperty('--dy', `${Math.round(point.y * width)}px`);
+    const previous = positions[(i + positions.length - 1) % positions.length];
+    note.style.setProperty('--from-x', `${Math.round(previous.x * width)}px`);
+    note.style.setProperty('--from-y', `${Math.round(previous.y * width - 9)}px`);
   });
 }
 positionNotes();
@@ -166,7 +182,7 @@ function makeConfetti() {
   const target = document.getElementById('confetti');
   target.replaceChildren();
   if (reducedMotion.matches) return;
-  for (let i = 0; i < 28; i++) {
+  for (let i = 0; i < 16; i++) {
     const piece = document.createElement('span');
     piece.className = 'confetti__piece';
     piece.style.setProperty('--x', `${(i * 47 + 17) % 100}%`);
@@ -180,12 +196,20 @@ function makeConfetti() {
 function finish() {
   cancelTimeline();
   showScene('cake');
-  makeConfetti();
+  if (!reducedMotion.matches) schedule(makeConfetti, 3350);
+}
+function fadeToScene(name) {
+  if (reducedMotion.matches) { showScene(name); return; }
+  document.querySelector('.scene.is-active')?.classList.add('is-exiting');
+  schedule(() => showScene(name), 230);
 }
 function play() {
   cancelTimeline();
   startButton.hidden = true;
-  shareFeedback.textContent = '把这份快乐，也送给你喜欢的人';
+  scenes.candles.classList.add('has-started');
+  scenes.notes.classList.remove('is-reading', 'is-assembled', 'is-building');
+  document.getElementById('confetti').replaceChildren();
+  shareFeedback.textContent = '愿你喜欢这份小小的礼物';
   document.querySelector('.note.is-selected')?.classList.remove('is-selected');
   readerLabel.textContent = '第一张祝福 · 写给你';
   readerText.textContent = wishes[0][1];
@@ -193,15 +217,16 @@ function play() {
   skipButton.hidden = false;
   setCandle(0);
   if (reducedMotion.matches) {
-    schedule(() => showScene('notes'), 900);
-    schedule(finish, 4600);
+    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 900);
+    schedule(finish, 4300);
     return;
   }
-  schedule(() => setCandle(1), 1600);
-  schedule(() => setCandle(2), 3200);
-  schedule(() => setCandle(-1), 4800);
-  schedule(() => showScene('notes'), 5300);
-  schedule(finish, 5300 + 9500);
+  schedule(() => setCandle(1), 1080);
+  schedule(() => setCandle(2), 2160);
+  schedule(() => fadeToScene('notes'), 3240);
+  schedule(() => scenes.notes.classList.add('is-assembled'), 7400);
+  schedule(() => fadeToScene('cake'), 10600);
+  schedule(makeConfetti, 14300);
 }
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name')?.trim().slice(0, 12);
