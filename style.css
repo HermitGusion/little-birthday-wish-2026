@@ -223,3 +223,130 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
   .blessing-field span { animation: none; opacity: .59; }
   .cake-art__flame { animation: none; opacity: 1; }
 }
+
+/* 影片化收束：去掉常驻卡片框架，让三幕各自有完整的光线。 */
+.app, .app.is-finale { background: #171b24; color: #f7edf0; }
+.app::before { display: none; }
+.app::after { content: ''; position: absolute; z-index: 0; inset: 0; pointer-events: none; background: radial-gradient(ellipse at 84% 22%, #f7c2cf 0%, transparent 46%), radial-gradient(ellipse at 9% 88%, #fff3c7 0%, transparent 48%), #f8e5e0; opacity: 0; transition: opacity 480ms var(--ease-in-out); }
+.app.is-notes::after { opacity: 1; }
+.ambient { display: none; }
+.experience { z-index: 1; }
+.topbar { min-height: 70px; color: #c9c5c2; font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', serif; }
+.wordmark { font-size: 13px; font-weight: 400; letter-spacing: .12em; }
+.topbar__date { display: none; }
+.page-footer { min-height: 47px; color: #a7a5ad; font-size: 10px; font-weight: 400; letter-spacing: .08em; }
+.app.is-notes .topbar, .app.is-notes .page-footer { color: #9f6d79; }
+.app.is-finale .topbar, .app.is-finale .page-footer { color: #bdb2b9; }
+.eyebrow { color: #d2bdba; font-size: 12px; font-weight: 400; letter-spacing: .12em; }
+.scene { padding: 6px 0 15px; }
+.scene.is-active { animation: scene-enter 380ms var(--ease-out) both; }
+.scene.is-exiting { animation: scene-leave 230ms var(--ease-out) forwards; }
+@keyframes scene-enter { from { opacity: 0; transform: none; } to { opacity: 1; transform: none; } }
+@keyframes scene-leave { to { opacity: 0; } }
+.hero-title, .section-title { font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', 'Songti SC', serif; font-weight: 400; letter-spacing: .03em; }
+.hero-title { margin: 5px 0 4px; font-size: clamp(34px, 6vw, 54px); line-height: 1.25; color: #fff4f1; }
+.scene-intro { color: #c3b5b4; }
+.scene--candles .helper-text { color: #aeaaa9; }
+.scene--candles.has-started .helper-text { opacity: 0; }
+.candle-stage { width: min(500px, 96vw); height: clamp(330px, 47svh, 440px); margin: 0; }
+.candle-stage::before { top: 11%; left: 23%; width: 54%; height: 70%; background: #428392; opacity: .2; filter: blur(44px); }
+.stage-star { color: #e64e51; text-shadow: 0 0 9px rgba(234,63,67,.5); }
+.stage-star--one { top: 16%; left: 12%; font-size: 39px; }
+.stage-star--two { top: 21%; right: 11%; color: #e04b4f; font-size: 25px; }
+.stage-star--three { top: 58%; right: 14%; color: #bd646c; font-size: 20px; }
+.candle-row { top: 11%; height: 75%; }
+.number-candle, .number-candle--two, .number-candle--one { bottom: 2%; width: 220px; height: 230px; }
+.number-candle .wax { display: block; inset: auto; width: 100%; height: 100%; border: 0; border-radius: 0; box-shadow: none; background: none; color: #4bc7dc; -webkit-text-stroke: 5px #f7fffe; paint-order: stroke fill; font-family: Impact, 'Arial Black', sans-serif; font-size: 232px; line-height: .99; font-weight: 900; text-shadow: 0 4px 0 #27859f, 0 9px 18px rgba(27,175,220,.38); }
+.number-candle--two .wax { color: #a8da47; text-shadow: 0 4px 0 #52843a, 0 9px 18px rgba(115,190,39,.34); }
+.number-candle--one .wax { color: #f7c34b; text-shadow: 0 4px 0 #b57531, 0 9px 18px rgba(237,163,54,.34); }
+.number-candle::after { content: attr(data-number); position: absolute; inset: 0; pointer-events: none; font-family: Impact, 'Arial Black', sans-serif; font-size: 232px; font-weight: 900; line-height: .99; background: radial-gradient(circle at 6px 6px, rgba(255,255,255,.88) 0 2px, transparent 3px) 0 0/17px 17px; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; opacity: .9; }
+.number-candle .wick { top: -3px; height: 17px; left: 49%; background: #f6edf0; }
+.number-candle .flame { top: -39px; left: 49%; width: 24px; height: 37px; filter: drop-shadow(0 0 8px #ff7a3b); }
+.number-candle--one .wick, .number-candle--one .flame { left: 56%; }
+.cake-plate { display: none; }
+.stage-caption { bottom: 0; color: #c4c4c1; font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', serif; font-size: 14px; font-weight: 400; letter-spacing: .15em; }
+.button--primary { background: #bd575e; border-color: #bd575e; box-shadow: none; }
+.scene--candles .button--primary { min-height: 44px; padding-inline: 23px; font-size: 12px; }
+.skip-button { color: #cfbbc1; background: transparent; }
+
+/* 纸窗从前一张依次抽出，堆成有厚度的心。 */
+.app.is-notes .eyebrow { color: #a96979; }
+.scene--notes .section-title { position: relative; z-index: 0; margin: -2px 0 -4px; color: #c64669; font-size: clamp(41px, 9vw, 75px); transform: rotate(-7deg); }
+.scene--notes .scene-intro { color: #986d76; }
+.heart-board { width: min(545px, calc(100vw - 22px), 57svh); margin-block: 3px 0; }
+.heart-board__glow { opacity: .32; }
+.heart-board__center { z-index: 100 !important; top: 51%; width: 43%; min-height: 88px; border: 0; border-radius: 3px; background: repeating-linear-gradient(0deg, transparent 0 13px, rgba(212,128,146,.08) 13px 14px), #fff9f4; box-shadow: 0 5px 0 #f0d0d0, 0 10px 19px rgba(126,70,87,.16); opacity: 0; transform: translate(-50%, -46%) scale(.96); transition: opacity 350ms var(--ease-out), transform 450ms var(--ease-out); pointer-events: none; }
+.scene--notes.is-assembled .heart-board__center, .scene--notes.is-reading .heart-board__center { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.heart-board__center strong { color: #c6435c; font-size: clamp(15px, 3.5vw, 23px); }
+.heart-board__center span { color: #976b78; }
+.note, .scene--notes.is-active .note { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 22%; aspect-ratio: 1.72; padding: 0; border: 1px solid rgba(154,122,137,.18); border-radius: 4px; overflow: hidden; background: var(--note-bg); box-shadow: 0 3px 0 rgba(255,255,255,.85), 1px 6px 9px rgba(102,67,82,.16); opacity: 0; transform: translate(calc(-50% + var(--from-x)), calc(-50% + var(--from-y))) rotate(var(--rotate)) scale(.96); transition: transform 550ms var(--ease-out), opacity 360ms var(--ease-out); transition-delay: var(--delay); }
+.note::before { display: none; }
+.scene--notes.is-building .note { opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rotate)) scale(1); }
+.note__bar { display: block; overflow: hidden; height: 20%; flex: none; padding: 1px 5px; border-bottom: 1px solid rgba(152,101,130,.14); background: rgba(255,255,255,.46); color: #ad9aa4; font-size: clamp(5px, 1vw, 7px); line-height: 1.5; white-space: nowrap; text-align: left; }
+.note__body { display: grid; flex: 1; place-items: center; color: #6f6572; font-size: clamp(8px, 1.65vw, 11px); font-weight: 500; letter-spacing: .05em; }
+.note.is-selected { z-index: 101 !important; border-color: #c76686; }
+.note-reader { position: absolute; z-index: 120; top: 51%; left: 50%; display: grid; align-content: center; width: min(77%, 310px); min-height: 115px; max-height: 58%; margin: 0; padding: 12px 13px; overflow: auto; border: 1px solid #e2b9be; border-radius: 3px; background: repeating-linear-gradient(0deg, transparent 0 20px, rgba(212,128,146,.08) 20px 21px), #fff9f4; box-shadow: 0 7px 0 #e9c9ca, 0 14px 34px rgba(95,49,69,.2); opacity: 0; transform: translate(-50%, -48%) scale(.96); transition: opacity 240ms var(--ease-out), transform 350ms var(--ease-out); pointer-events: none; }
+.scene--notes.is-reading .note-reader { opacity: 1; transform: translate(-50%, -50%) scale(1); pointer-events: auto; }
+.scene--notes.is-reading .heart-board__center { opacity: 0; }
+.note-reader p { font-size: clamp(10px, 2.7vw, 13px); line-height: 1.65; }
+.note-next { opacity: 0; transition: opacity 250ms var(--ease-out), transform 140ms var(--ease-out); pointer-events: none; }
+.scene--notes.is-assembled .note-next, .scene--notes.is-reading .note-next { opacity: 1; pointer-events: auto; }
+
+/* 收尾像一幅画：保留满屏祝福，字落在边缘而非压住线条。 */
+.app.is-finale { background: radial-gradient(circle at 50% 43%, #393239 0, #201e25 56%, #15171c 100%); }
+.scene--cake .eyebrow { display: none; }
+.cake-art { width: min(570px, 95vw); }
+.cake-art::before { filter: blur(18px); opacity: .3; background: #bd827a; }
+.blessing-field { inset: -14% -22%; opacity: 0; animation: field-appear 720ms var(--ease-out) 320ms forwards; mask-image: radial-gradient(ellipse at center, transparent 3%, #000 41%, #000 100%); }
+.blessing-field span { animation: none; opacity: .37; color: var(--field-color); font-size: clamp(7px, 1.1vw, 9px); }
+.blessing-field span:nth-child(6n) { opacity: .64; }
+@keyframes field-appear { to { opacity: 1; } }
+.cake-svg { filter: drop-shadow(0 0 5px rgba(255,187,114,.35)); }
+.cake-line { animation-duration: 1030ms; }
+.cake-line--plate { animation-delay: 130ms; }
+.cake-line--body { animation-delay: 550ms; }
+.cake-line--top { animation-delay: 900ms; }
+.cake-line--icing { animation-delay: 1240ms; }
+.cake-line--details { animation-delay: 1550ms; }
+.cake-line--candle { animation-delay: 1830ms; }
+.cake-svg .cake-line--plate { stroke: #ffe3ba; }
+.cake-svg .cake-line--body { stroke: #ffcb8b; }
+.cake-svg .cake-line--top { stroke: #ffe9bd; }
+.cake-svg .cake-line--icing { stroke: #f6c49c; }
+.cake-svg .cake-line--details { stroke: #eacfae; }
+.cake-svg .cake-line--candle { stroke: #ffe2ab; }
+.cake-art__flame { animation: flame-appear 260ms var(--ease-out) 2900ms forwards, flicker 770ms var(--ease-in-out) 3200ms infinite alternate; }
+.scene--cake .script-label { color: #ebd2b3; font-size: clamp(19px, 3vw, 27px); opacity: .75; }
+.scene--cake .final-title { font-family: 'Kaiti SC', 'STKaiti', 'KaiTi', 'Songti SC', serif; font-weight: 400; letter-spacing: .04em; }
+.scene--cake .final-wish { max-width: 520px; font-size: clamp(12px, 2.4vw, 14px); }
+.scene--cake .button--primary { background: #956b62; border-color: #956b62; box-shadow: none; }
+.scene--cake .button--outline { border-color: #a99a94; }
+
+@media (max-width: 600px) {
+  .topbar { min-height: 54px; }
+  .wordmark { font-size: 11px; }
+  .page-footer { min-height: 42px; }
+  .hero-title { font-size: 35px; }
+  .candle-stage { height: min(55svh, 460px); }
+  .number-candle, .number-candle--two, .number-candle--one { bottom: 6%; width: 190px; height: 198px; }
+  .number-candle .wax, .number-candle::after { font-size: 200px; }
+  .heart-board { width: min(calc(100vw - 16px), 53svh); }
+  .note__bar { font-size: 5px; }
+  .note__body { font-size: 8px; }
+  .note-reader { min-height: 80px; }
+  .cake-art { width: min(390px, 98vw); }
+  .blessing-field { inset: -7% -3%; }
+}
+@media (max-height: 690px) {
+  .candle-stage { height: min(52svh, 310px); }
+  .heart-board { width: min(calc(100vw - 16px), 46svh); }
+  .cake-art { width: min(330px, 51svh); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .app::after { transition-duration: 200ms; }
+  .scene.is-active { animation: fade-in 200ms var(--ease-out) both; }
+  .number-candle, .number-candle.is-current { transition: opacity 160ms var(--ease-out); transform: translateX(-50%); }
+  .note, .scene--notes.is-active .note, .scene--notes.is-building .note { transition: opacity 160ms var(--ease-out); transition-delay: 0ms; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))); }
+  .blessing-field { animation: none; opacity: 1; }
+  .cake-art__flame { animation: none; opacity: 1; }
+}
