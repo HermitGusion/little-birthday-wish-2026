@@ -288,21 +288,23 @@ function play() {
   document.querySelector('.note.is-selected')?.classList.remove('is-selected');
   readerLabel.textContent = '写给你';
   readerText.textContent = wishes[0][1];
-  showScene('candles');
+  showScene('ready');
   skipButton.hidden = false;
   setCandle(0);
+  progressLabel.textContent = '准备好了吗';
   if (reducedMotion.matches) {
-    schedule(() => showScene('ready'), 900);
-    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 2700);
-    schedule(finish, 6100);
+    schedule(() => showScene('candles'), 1800);
+    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 2900);
+    schedule(finish, 6300);
     return;
   }
   const candleBeat = 1650;
-  const readyStart = candleBeat * 3;
-  const notesStart = readyStart + 3400;
-  schedule(() => setCandle(1), candleBeat);
-  schedule(() => setCandle(2), candleBeat * 2);
-  schedule(() => fadeToScene('ready'), readyStart);
+  const candleStart = 3400;
+  const candleVisible = candleStart + 230;
+  const notesStart = candleVisible + candleBeat * 3;
+  schedule(() => fadeToScene('candles'), candleStart);
+  schedule(() => setCandle(1), candleVisible + candleBeat);
+  schedule(() => setCandle(2), candleVisible + candleBeat * 2);
   schedule(() => fadeToScene('notes'), notesStart);
   schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 4160);
   schedule(() => fadeToScene('cake'), notesStart + 7360);
