@@ -143,7 +143,7 @@ wishes.forEach(([label, fullWish], i) => {
   note.setAttribute('aria-label', fullWish);
   note.style.setProperty('--note-bg', colors[i % colors.length]);
   note.style.setProperty('--rotate', `${[-4, 2, 0, 3, -2, 1][i % 6]}deg`);
-  note.style.setProperty('--delay', `${i * 72}ms`);
+  note.style.setProperty('--delay', `${Math.round(Math.hypot(positions[i].x, positions[i].y) * 1050 + i % 5 * 38)}ms`);
   note.style.zIndex = String(i + 1);
   note.addEventListener('click', () => {
     cancelTimeline(); // 阅读便利贴时暂停自动翻页。
@@ -161,9 +161,8 @@ function positionNotes() {
     const point = positions[i];
     note.style.setProperty('--dx', `${Math.round(point.x * width)}px`);
     note.style.setProperty('--dy', `${Math.round(point.y * width)}px`);
-    const previous = positions[(i + positions.length - 1) % positions.length];
-    note.style.setProperty('--from-x', `${Math.round(previous.x * width)}px`);
-    note.style.setProperty('--from-y', `${Math.round(previous.y * width - 9)}px`);
+    note.style.setProperty('--from-x', '0px');
+    note.style.setProperty('--from-y', '0px');
   });
 }
 positionNotes();
