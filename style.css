@@ -411,9 +411,9 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .ready-message::before { content: ''; position: absolute; z-index: -1; inset: -35px -60px; background: radial-gradient(ellipse, rgba(255,243,235,.98), rgba(255,239,232,.85) 45%, transparent 72%); }
 .ready-message .button { min-height: 50px; margin-top: 18px; padding-inline: 20px; gap: 15px; border-color: #bd8093; background: #bd8093; color: #fff8f6; font: 400 14px BirthdayGummy, 'Microsoft YaHei', sans-serif; letter-spacing: .04em; white-space: nowrap; }
 .ready-message h2 { margin: 0; font: 400 clamp(35px, 8.5vw, 76px)/1.45 BirthdaySoftDisplay, BirthdayCartoon, sans-serif; }
-.ready-character { display: block; width: min(185px, 40vw); height: auto; max-height: min(26svh, 190px); margin: 0 auto 4px; object-fit: contain; filter: drop-shadow(0 9px 12px rgba(130, 80, 98, .16)); }
-.cake-characters { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; gap: clamp(2px, 2vw, 16px); width: min(380px, 94vw); height: clamp(70px, 12svh, 100px); margin: -34px auto -2px; pointer-events: none; }
-.cake-characters img { display: block; width: min(31%, 105px); height: 100%; object-fit: contain; filter: drop-shadow(0 5px 6px rgba(123, 76, 92, .2)); }
+.ready-character { display: block; width: min(185px, 40vw, 25svh); height: auto; aspect-ratio: 1; margin: 0 auto 10px; border: 3px solid rgba(255, 249, 246, .95); border-radius: 50%; background: radial-gradient(circle at 50% 35%, #fff7f1, #e6bad1); object-fit: cover; box-shadow: 0 8px 24px rgba(130, 80, 98, .18); }
+.cake-characters { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; gap: clamp(5px, 2vw, 16px); width: min(380px, 94vw); height: clamp(70px, 12svh, 100px); margin: -34px auto -2px; pointer-events: none; }
+.cake-characters img { display: block; width: min(30%, 100px); height: auto; aspect-ratio: 1; border: 2px solid #fff8f5; border-radius: 50%; background: radial-gradient(circle at 50% 30%, #fdf6f7, #f1c9d8); object-fit: cover; box-shadow: 0 5px 12px rgba(123, 76, 92, .2); }
 @media (min-width: 601px) { .scene--cake .cake-art { width: min(500px, 75svh); } }
 @media (max-height: 690px) { .cake-characters { height: 70px; margin-top: -40px; } }
 
