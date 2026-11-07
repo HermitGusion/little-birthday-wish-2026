@@ -359,3 +359,12 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .number-candle--three .wick, .number-candle--three .flame { left: 51%; }
 .number-candle--two .wick, .number-candle--two .flame { left: 50%; }
 .number-candle--one .wick, .number-candle--one .flame { left: 53%; }
+
+/* 祝福用随页嵌入的圆趣字体；图标按钮仍保留可访问名称。 */
+:root { --wish-font: BirthdayCartoon, 'Arial Rounded MT Bold', 'Microsoft YaHei', sans-serif; }
+.blessing-field span, .note__body, .note-reader__label, .note-reader p,
+.heart-board__center strong, .scene--cake .final-title, .scene--cake .final-wish { font-family: var(--wish-font); font-weight: 400; }
+.button.icon-button { display: inline-flex; align-items: center; justify-content: center; width: 52px; min-width: 52px; height: 52px; min-height: 52px; padding: 0; gap: 0; border-radius: 50%; }
+.icon-button svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.number-candle .wick { top: 3%; }
+.number-candle .flame { top: -12%; }

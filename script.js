@@ -209,21 +209,21 @@ for (let i = 0; i < 112; i++) {
 
 // 自绘圆角糖霜数字，轮廓不依赖设备字体。
 const cartoonDigits = [
-  { path: 'M48 45C81 17 133 35 130 76Q126 105 94 110C148 109 151 166 120 188Q83 216 45 186', color: '#5bd5e5', shade: '#268ca8', face: [114, 68] },
-  { path: 'M42 62C45 4 142 13 138 72C137 111 67 128 45 180L141 180', color: '#b6e567', shade: '#6b9c44', face: [92, 36] },
+  { path: 'M48 45C81 17 133 35 130 76Q126 105 94 110C148 109 151 166 120 188Q83 216 45 186', color: '#5bd5e5', shade: '#268ca8', face: [127, 68] },
+  { path: 'M42 62C45 4 142 13 138 72C137 111 67 128 45 180L141 180', color: '#b6e567', shade: '#6b9c44', face: [94, 32] },
   { path: 'M59 62L95 32L95 190M57 190L135 190', color: '#ffcf66', shade: '#bf8a36', face: [95, 108] }
 ];
 candles.forEach((candle, i) => {
   const digit = cartoonDigits[i];
   const [x, y] = digit.face;
   const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('viewBox', '0 0 180 230');
+  svg.setAttribute('viewBox', '-10 -10 200 250');
   svg.setAttribute('class', 'cartoon-digit');
   svg.setAttribute('aria-hidden', 'true');
   svg.innerHTML = `<g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="${digit.path}" stroke="${digit.shade}" stroke-width="48" transform="translate(0 6)"/>
-    <path d="${digit.path}" stroke="#fff6e8" stroke-width="45"/>
-    <path d="${digit.path}" stroke="${digit.color}" stroke-width="34"/>
+    <path d="${digit.path}" stroke="${digit.shade}" stroke-width="66" transform="translate(0 6)"/>
+    <path d="${digit.path}" stroke="#fff6e8" stroke-width="62"/>
+    <path d="${digit.path}" stroke="${digit.color}" stroke-width="50"/>
     <path d="${digit.path}" stroke="#fff" stroke-opacity=".55" stroke-width="4" stroke-dasharray="0 24"/>
     <path d="M${x-7} ${y}v3m14-3v3" stroke="#51444b" stroke-width="3.4"/>
     <path d="M${x-3} ${y+9}q3 3 6 0" stroke="#51444b" stroke-width="2.3"/>
