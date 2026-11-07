@@ -142,8 +142,12 @@ wishes.forEach(([label, fullWish], i) => {
   note.append(bar, body);
   note.setAttribute('aria-label', fullWish);
   note.style.setProperty('--note-bg', colors[i % colors.length]);
-  note.style.setProperty('--rotate', `${[-4, 2, 0, 3, -2, 1][i % 6]}deg`);
-  note.style.setProperty('--delay', `${Math.round(Math.hypot(positions[i].x, positions[i].y) * 1050 + i % 5 * 38)}ms`);
+  const rotation = [-4, 2, 0, 3, -2, 1][i % 6];
+  note.style.setProperty('--rotate', `${rotation}deg`);
+  note.style.setProperty('--enter-rotate', `${rotation + ((i * 11) % 17 - 8)}deg`);
+  // 距中心较近的纸卡先抵达，错开的节奏避免整圈同时落下。
+  note.style.setProperty('--delay', `${Math.round(Math.hypot(positions[i].x, positions[i].y) * 660 + (i * 17) % 13 * 24)}ms`);
+  note.style.setProperty('--flight-duration', `${680 + (i * 19) % 7 * 55}ms`);
   note.style.zIndex = String(i + 1);
   note.addEventListener('click', () => {
     cancelTimeline(); // 阅读便利贴时暂停自动翻页。
@@ -370,7 +374,7 @@ function play() {
   schedule(() => setCandle(1), candleVisible + candleBeat);
   schedule(() => setCandle(2), candleVisible + candleBeat * 2);
   schedule(() => fadeToScene('notes'), notesStart);
-  schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 4160);
+  schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 1750);
   schedule(startBloom, notesStart + 7360);
 }
 const params = new URLSearchParams(window.location.search);
