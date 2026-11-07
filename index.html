@@ -6,10 +6,10 @@
   <meta name="theme-color" content="#171b24">
   <meta name="description" content="数字蜡烛倒数、祝福便利贴组成心形，满屏祝福中绘出生日蛋糕。">
   <title>生日快乐 · 把所有祝福送给你</title>
-  <link rel="stylesheet" href="./cartoon-font.css?v=11">
-  <link rel="stylesheet" href="./footer-font.css?v=11">
+  <link rel="stylesheet" href="./cartoon-font.css?v=12">
+  <link rel="stylesheet" href="./footer-font.css?v=12">
   <link rel="stylesheet" href="./scene-fonts.css?v=9">
-  <link rel="stylesheet" href="./style.css?v=11">
+  <link rel="stylesheet" href="./style.css?v=12">
   <script src="./script.js?v=9" defer></script>
 </head>
 <body>
@@ -36,7 +36,7 @@
             <div class="number-candle number-candle--one" data-number="1"><span class="flame"></span><span class="wick"></span><span class="wax">1</span></div>
           </div>
           <div class="cake-plate" aria-hidden="true"><span class="cake-plate__top"></span><span class="cake-plate__base"></span></div>
-          <div class="stage-caption" aria-hidden="true">把愿望交给烛光</div>
+          <div class="stage-caption" aria-hidden="true">烛光亮起，好事将至</div>
         </div>
         <p id="countdown-status" class="sr-only" aria-live="polite"></p>
         <button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button>
@@ -45,7 +45,7 @@
 
       <section class="scene scene--ready" id="scene-ready" aria-labelledby="ready-title" aria-hidden="true" inert>
         <div id="birthday-stream" class="birthday-stream" aria-hidden="true"></div>
-        <div class="ready-message"><p>接下来，这些都送给你。</p><h2 id="ready-title">准备好了吗？</h2><span aria-hidden="true">✦</span></div>
+        <div class="ready-message"><h2 id="ready-title">准备好了吗？</h2><span aria-hidden="true">✦</span></div>
       </section>
 
       <section class="scene scene--notes" id="scene-notes" aria-labelledby="notes-title" aria-hidden="true" inert>
@@ -83,13 +83,13 @@
           </svg>
           <span class="cake-art__flame" aria-hidden="true"></span><div id="confetti" class="confetti" aria-hidden="true"></div>
         </div>
-        <div class="cake-message"><span class="script-label">Happy Birthday!</span><h2 id="cake-title" class="final-title"><span id="recipient">傅雪妍</span>，生日快乐<span aria-hidden="true"> ♡</span></h2>
+        <div class="cake-message"><span class="script-label">Happy Birthday!</span><h2 id="cake-title" class="final-title"><span id="recipient">傅雪妍</span>，生日快乐</h2>
           <p id="final-wish" class="final-wish">愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，闪闪发光。</p>
           <div class="cake-actions"><button id="replay-button" class="button button--primary icon-button" type="button" aria-label="重新播放生日祝福" title="重新播放生日祝福"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10a8 8 0 1 1 1.5 7M4 4v6h6"/></svg></button></div>
         </div>
       </section>
     </main>
-    <footer class="page-footer"><span>愿岁岁欢喜</span><span id="progress-label">倒数 · 3</span></footer>
+    <footer class="page-footer"><span>岁岁欢喜</span><span id="progress-label">倒数 · 3</span></footer>
     <button id="skip-button" class="skip-button" type="button" hidden>跳过动画 →</button>
   </div>
 </body>
