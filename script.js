@@ -50,7 +50,7 @@ const wishes = [
   ['甜甜生日', '愿今天的蛋糕甜，收到的祝福真，许下的心愿被认真听见；生日快乐！'],
   ['永远被爱', '愿你无论走到哪一站，都知道有人惦记你，也要记得先好好爱自己。']
 ];
-const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。今天这块蛋糕，先替我把祝福送到你面前。';
+const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，平凡也闪闪发光。';
 const scenes = { candles: document.getElementById('scene-candles'), notes: document.getElementById('scene-notes'), cake: document.getElementById('scene-cake') };
 const app = document.getElementById('app');
 const heartBoard = document.getElementById('heart-board');
@@ -272,12 +272,14 @@ function play() {
     schedule(finish, 4300);
     return;
   }
-  schedule(() => setCandle(1), 1080);
-  schedule(() => setCandle(2), 2160);
-  schedule(() => fadeToScene('notes'), 3240);
-  schedule(() => scenes.notes.classList.add('is-assembled'), 7400);
-  schedule(() => fadeToScene('cake'), 10600);
-  schedule(makeConfetti, 14300);
+  const candleBeat = 1650;
+  const notesStart = candleBeat * 3;
+  schedule(() => setCandle(1), candleBeat);
+  schedule(() => setCandle(2), candleBeat * 2);
+  schedule(() => fadeToScene('notes'), notesStart);
+  schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 4160);
+  schedule(() => fadeToScene('cake'), notesStart + 7360);
+  schedule(makeConfetti, notesStart + 11060);
 }
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name')?.trim().slice(0, 12);
