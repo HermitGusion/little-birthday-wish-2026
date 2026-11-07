@@ -370,3 +370,38 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .number-candle .flame { top: -12%; }
 .page-footer, .app.is-notes .page-footer, .app.is-finale .page-footer, .skip-button { font-family: BirthdayGummy, 'Arial Rounded MT Bold', 'Microsoft YaHei', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: .06em; }
 .app { padding-top: max(12px, env(safe-area-inset-top, 0px)); }
+
+/* 祝福底图独立于蛋糕插画，覆盖完整视口。 */
+.app > .blessing-field { position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: hidden; opacity: 0; visibility: hidden; animation: none; pointer-events: none; mask-image: radial-gradient(ellipse at 50% 43%, rgba(0,0,0,.28) 0, rgba(0,0,0,.76) 34%, #000 68%); }
+.app.is-finale > .blessing-field { visibility: visible; animation: field-appear 900ms var(--ease-out) both; }
+.app > .blessing-field span { width: min(var(--sentence-width), 80vw); }
+
+/* 蜡烛之后的轻盈过场。每行无缝循环，屏幕外的字不创建单独动画。 */
+.app.is-ready::after { opacity: 1; }
+.app.is-ready .page-footer, .app.is-ready .skip-button { color: #a16a7d; }
+.scene--ready { position: relative; max-width: none; min-height: 76svh; isolation: isolate; }
+.birthday-stream { position: fixed; z-index: 0; inset: -8svh -12vw; display: flex; flex-direction: column; justify-content: space-evenly; overflow: hidden; pointer-events: none; transform: rotate(-8deg) scale(1.08); opacity: .42; }
+.birthday-stream__row { display: flex; flex: 0 0 auto; align-items: center; width: max-content; color: var(--stream-color); animation: birthday-flow var(--stream-time) linear var(--stream-offset) infinite; animation-play-state: paused; }
+.app.is-ready .birthday-stream__row { animation-play-state: running; }
+.birthday-stream__row:nth-child(even) { animation-direction: reverse; }
+.birthday-stream__row:nth-child(3n) { opacity: .55; }
+.birthday-stream__group { display: flex; align-items: center; gap: clamp(24px, 4vw, 70px); flex: 0 0 auto; padding-right: clamp(24px, 4vw, 70px); }
+.birthday-stream__group span { display: block; font-size: clamp(32px, 5.7vw, 76px); line-height: 1.5; white-space: nowrap; font-weight: 400; }
+@keyframes birthday-flow { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ready-message { position: relative; z-index: 2; padding: 36px 24px; color: #a13f65; }
+.ready-message::before { content: ''; position: absolute; z-index: -1; inset: -35px -60px; background: radial-gradient(ellipse, rgba(255,243,235,.98), rgba(255,239,232,.85) 45%, transparent 72%); }
+.ready-message p { margin: 0 0 15px; font: 400 14px BirthdayGummy, sans-serif; letter-spacing: .12em; }
+.ready-message h2 { margin: 0; font: 400 clamp(35px, 8.5vw, 76px)/1.45 BirthdaySoftDisplay, BirthdayCartoon, sans-serif; }
+.ready-message > span { display: inline-block; margin-top: 16px; color: #dba473; font-size: 23px; }
+
+/* 飘逸手写大字作为心形纸卡背后的底图，自适应横竖屏。 */
+.scene--notes { position: relative; }
+.scene--notes .section-title { position: fixed; z-index: 0; top: 27%; left: 50%; width: 98vw; margin: 0; text-align: center; font-family: BirthdayFlow, 'Kaiti SC', serif; font-size: clamp(76px, min(25vw, 43svh), 270px); line-height: 1.3; letter-spacing: -.04em; color: #c84370; opacity: .48; white-space: nowrap; transform: translate(-50%, -50%) rotate(-8deg); pointer-events: none; }
+.scene--notes .eyebrow, .scene--notes .scene-intro, .scene--notes .heart-board, .scene--notes .note-next { position: relative; z-index: 1; }
+.scene--notes .heart-board { margin-top: 18px; }
+@media (prefers-reduced-motion: reduce) {
+  .birthday-stream__row { animation: none; transform: translateX(-12%); }
+  .birthday-stream__row:nth-child(even) { transform: translateX(-24%); }
+  .app.is-finale > .blessing-field { animation: fade-in 200ms var(--ease-out) both; }
+}
+

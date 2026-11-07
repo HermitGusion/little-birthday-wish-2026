@@ -50,8 +50,8 @@ const wishes = [
   ['甜甜生日', '愿今天的蛋糕甜，收到的祝福真，许下的心愿被认真听见；生日快乐！'],
   ['永远被爱', '愿你无论走到哪一站，都知道有人惦记你，也要记得先好好爱自己。']
 ];
-const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，平凡也闪闪发光。';
-const scenes = { candles: document.getElementById('scene-candles'), notes: document.getElementById('scene-notes'), cake: document.getElementById('scene-cake') };
+const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，闪闪发光。';
+const scenes = { candles: document.getElementById('scene-candles'), ready: document.getElementById('scene-ready'), notes: document.getElementById('scene-notes'), cake: document.getElementById('scene-cake') };
 const app = document.getElementById('app');
 const heartBoard = document.getElementById('heart-board');
 const noteContainer = document.getElementById('notes-container');
@@ -86,12 +86,13 @@ function showScene(name) {
   });
   app.classList.toggle('is-finale', name === 'cake');
   app.classList.toggle('is-notes', name === 'notes');
-  document.querySelector('meta[name="theme-color"]').content = name === 'notes' ? '#f8e5e0' : '#171b24';
+  app.classList.toggle('is-ready', name === 'ready');
+  document.querySelector('meta[name="theme-color"]').content = name === 'notes' || name === 'ready' ? '#f8e5e0' : '#171b24';
   document.querySelectorAll('.scene.is-exiting').forEach(scene => scene.classList.remove('is-exiting'));
   if (name === 'notes') requestAnimationFrame(() => requestAnimationFrame(() => {
     if (scenes.notes.classList.contains('is-active')) scenes.notes.classList.add('is-building');
   }));
-  progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), notes: '祝福正在抵达', cake: '生日快乐' }[name];
+  progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), ready: '准备好了吗', notes: '祝福正在抵达', cake: '生日快乐' }[name];
   skipButton.hidden = name === 'cake' || name === 'candles' && !startButton.hidden;
 }
 function setCandle(index) {
@@ -193,7 +194,7 @@ function fieldRandom() {
   return fieldSeed / 4294967296;
 }
 const blessingField = document.getElementById('blessing-field');
-for (let i = 0; i < 112; i++) {
+for (let i = 0; i < 168; i++) {
   const line = document.createElement('span');
   line.textContent = backgroundWishes[(i * 13 + Math.floor(i / backgroundWishes.length)) % backgroundWishes.length];
   const depth = fieldRandom();
@@ -205,6 +206,29 @@ for (let i = 0; i < 112; i++) {
   line.style.setProperty('--sentence-angle', `${-17 + fieldRandom() * 34}deg`);
   line.style.setProperty('--field-color', ['#f5dfc2', '#e7bbbf', '#c6bbd4', '#c2d3cb'][i % 4]);
   blessingField.append(line);
+}
+
+// 每一行只有一条持续的 transform 动画，字本身保持静止，降低移动端负担。
+const stream = document.getElementById('birthday-stream');
+const streamFonts = ['BirthdayCartoon', 'BirthdayGummy', 'BirthdaySoftDisplay'];
+for (let rowIndex = 0; rowIndex < 9; rowIndex++) {
+  const row = document.createElement('div');
+  row.className = 'birthday-stream__row';
+  row.style.setProperty('--stream-time', `${20 + rowIndex % 4 * 3}s`);
+  row.style.setProperty('--stream-offset', `${-rowIndex * 2.7}s`);
+  row.style.setProperty('--stream-color', ['#cf6c89', '#bc96c5', '#c5a36e', '#86ada3'][rowIndex % 4]);
+  for (let groupIndex = 0; groupIndex < 2; groupIndex++) {
+    const group = document.createElement('div');
+    group.className = 'birthday-stream__group';
+    for (let wordIndex = 0; wordIndex < 5; wordIndex++) {
+      const word = document.createElement('span');
+      word.textContent = '生日快乐';
+      word.style.fontFamily = streamFonts[(rowIndex + wordIndex) % streamFonts.length];
+      group.append(word);
+    }
+    row.append(group);
+  }
+  stream.append(row);
 }
 
 // 自绘圆角糖霜数字，轮廓不依赖设备字体。
@@ -268,14 +292,17 @@ function play() {
   skipButton.hidden = false;
   setCandle(0);
   if (reducedMotion.matches) {
-    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 900);
-    schedule(finish, 4300);
+    schedule(() => showScene('ready'), 900);
+    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 2700);
+    schedule(finish, 6100);
     return;
   }
   const candleBeat = 1650;
-  const notesStart = candleBeat * 3;
+  const readyStart = candleBeat * 3;
+  const notesStart = readyStart + 3400;
   schedule(() => setCandle(1), candleBeat);
   schedule(() => setCandle(2), candleBeat * 2);
+  schedule(() => fadeToScene('ready'), readyStart);
   schedule(() => fadeToScene('notes'), notesStart);
   schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 4160);
   schedule(() => fadeToScene('cake'), notesStart + 7360);
