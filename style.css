@@ -371,6 +371,22 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .page-footer, .app.is-notes .page-footer, .app.is-finale .page-footer, .skip-button { font-family: BirthdayGummy, 'Arial Rounded MT Bold', 'Microsoft YaHei', sans-serif; font-weight: 400; font-size: 12px; letter-spacing: .06em; }
 .app { padding-top: max(12px, env(safe-area-inset-top, 0px)); }
 
+/* 首页使用动漫字形，纸卡使用更清晰的圆润软糖字形。 */
+.scene--candles .hero-title, .scene--candles .stage-caption,
+.scene--candles .button, .scene--candles .helper-text { font-family: var(--wish-font); font-weight: 400; }
+.note__body, .note-reader__label, .note-reader p, .heart-board__center strong { font-family: BirthdayGummy, 'Arial Rounded MT Bold', 'Microsoft YaHei', sans-serif; font-weight: 400; }
+.note__body { font-size: clamp(12px, 2.8vw, 17px); letter-spacing: .025em; }
+.note-reader__label { font-size: clamp(12px, 2.9vw, 15px); }
+.note-reader p { font-size: clamp(12px, 3.1vw, 15px); line-height: 1.7; }
+.candle-celebration { position: absolute; inset: 0; pointer-events: none; }
+.candle-spark { position: absolute; left: var(--x); top: var(--y); font-size: var(--s); color: #ffd797; opacity: .6; animation: candle-sparkle 2900ms var(--ease-in-out) var(--d) infinite alternate; }
+.candle-spark:nth-child(3n) { color: #f2b8d2; }
+.candle-firework { position: absolute; width: 53px; height: 53px; color: #efb4cf; opacity: .5; animation: candle-sparkle 3300ms var(--ease-in-out) infinite alternate; }
+.candle-firework--left { left: 1%; top: 5%; }
+.candle-firework--right { right: 1%; top: 63%; color: #b4deda; animation-delay: 1200ms; }
+@keyframes candle-sparkle { from { opacity: .3; transform: scale(.94); } to { opacity: .85; transform: scale(1.06); } }
+@media (prefers-reduced-motion: reduce) { .candle-spark, .candle-firework { animation: none; opacity: .6; } }
+
 /* 祝福底图独立于蛋糕插画，覆盖完整视口。 */
 .app > .blessing-field { position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; overflow: hidden; opacity: 0; visibility: hidden; animation: none; pointer-events: none; mask-image: radial-gradient(ellipse at 50% 43%, rgba(0,0,0,.28) 0, rgba(0,0,0,.76) 34%, #000 68%); }
 .app.is-finale > .blessing-field { visibility: visible; animation: field-appear 900ms var(--ease-out) both; }
