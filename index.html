@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="./cartoon-font.css?v=12">
   <link rel="stylesheet" href="./footer-font.css?v=12">
   <link rel="stylesheet" href="./scene-fonts.css?v=9">
-  <link rel="stylesheet" href="./style.css?v=20">
+  <link rel="stylesheet" href="./style.css?v=21">
   <script src="./script.js?v=18" defer></script>
 </head>
 <body>
@@ -20,7 +20,7 @@
     <main class="experience" id="experience">
       <section class="scene scene--ready is-active" id="scene-ready" aria-labelledby="ready-title">
         <div id="birthday-stream" class="birthday-stream" aria-hidden="true"></div>
-        <div class="ready-message"><h2 id="ready-title">准备好了吗？</h2><button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button></div>
+        <div class="ready-message"><img class="ready-character" src="./shaosiyuan-chibi.svg" alt="Q版少司缘" width="240" height="270"><h2 id="ready-title">准备好了吗？</h2><button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button></div>
       </section>
       <section class="scene scene--candles" id="scene-candles" aria-labelledby="candle-title" aria-hidden="true" inert>
         <h1 class="hero-title" id="candle-title">把今天的光，<br>留给你。</h1>
@@ -84,6 +84,11 @@
             </g>
           </svg>
           <span class="cake-art__flame" aria-hidden="true"></span><div id="confetti" class="confetti" aria-hidden="true"></div>
+        </div>
+        <div class="cake-characters" aria-label="少司缘、朵莉亚和瑶的Q版形象">
+          <img src="./shaosiyuan-chibi.svg" alt="Q版少司缘" width="240" height="270">
+          <img src="./duoliya-chibi.svg" alt="Q版朵莉亚" width="240" height="270">
+          <img src="./yao-chibi.svg" alt="Q版瑶" width="240" height="270">
         </div>
         <div class="cake-message"><span class="script-label">Happy Birthday!</span><h2 id="cake-title" class="final-title"><span id="recipient">傅雪妍</span>，生日快乐<svg class="finger-heart" viewBox="50 20 120 176" role="img" aria-label="手指比心，红色爱心悬在指尖"><path class="finger-heart__heart" d="M113 89C95 77 75 63 75 46c0-13 8-21 18-21 11 0 19 9 23 19 6-10 14-14 23-13 14 1 23 10 23 22 0 16-21 29-49 36Z"/><path class="finger-heart__hand" d="M91 100c2-4 7-5 11-2l19 16c-4-8-2-14 3-16 7-3 13 2 13 11l-1 11c6 7 9 16 9 29 0 26-16 39-39 39-25 0-43-10-48-28-2-8-1-15 4-17 4-2 8 0 11 4-4-8-2-15 3-18 5-3 10 0 13 5-3-9-2-15 3-18 4-3 9-1 13 4l-13-14c-3-3-4-7-1-10Z"/><path class="finger-heart__fold" d="M94 100c7 5 14 12 20 19m-16-12 12 11m13-18c6 6 9 14 10 22m-56 10c4 1 8 5 10 10m-16 2c4 1 8 5 10 9m27-34c6 6 11 13 15 20"/></svg></h2>
           <p id="final-wish" class="final-wish">愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，闪闪发光。</p>

@@ -279,7 +279,7 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .scene--notes.is-assembled .heart-board__center, .scene--notes.is-reading .heart-board__center { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .heart-board__center strong { color: #c6435c; font-size: clamp(15px, 3.5vw, 23px); }
 .heart-board__center span { color: #976b78; }
-.note, .scene--notes.is-active .note { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 14.5%; aspect-ratio: 1.06; padding: 0; border: 1px solid rgba(154,122,137,.18); border-radius: 4px; overflow: hidden; background: var(--note-bg); box-shadow: 0 3px 0 rgba(255,255,255,.85), 1px 6px 9px rgba(102,67,82,.16); opacity: 0; visibility: hidden; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 10px)) rotate(var(--enter-rotate)) scale(.96); transition: transform 260ms var(--ease-out), opacity 70ms var(--ease-out), visibility 0s linear; transition-delay: var(--delay); }
+.note, .scene--notes.is-active .note { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 16%; aspect-ratio: 1.06; padding: 0; border: 1px solid rgba(154,122,137,.18); border-radius: 4px; overflow: hidden; background: var(--note-bg); box-shadow: 0 3px 0 rgba(255,255,255,.85), 1px 6px 9px rgba(102,67,82,.16); opacity: 0; visibility: hidden; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 10px)) rotate(var(--enter-rotate)) scale(.96); transition: transform 260ms var(--ease-out), opacity 70ms var(--ease-out), visibility 0s linear; transition-delay: var(--delay); }
 .note::before { display: none; }
 .scene--notes.is-building .note { visibility: visible; opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rotate)) scale(1); }
 .note__bar { display: block; overflow: hidden; height: 18%; flex: none; padding: 0 2px; border-bottom: 1px solid rgba(152,101,130,.14); background: rgba(255,255,255,.46); color: #ad9aa4; font-size: clamp(5px, .75vw, 7px); line-height: 1.2; white-space: nowrap; text-align: left; }
@@ -411,6 +411,11 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .ready-message::before { content: ''; position: absolute; z-index: -1; inset: -35px -60px; background: radial-gradient(ellipse, rgba(255,243,235,.98), rgba(255,239,232,.85) 45%, transparent 72%); }
 .ready-message .button { min-height: 50px; margin-top: 18px; padding-inline: 20px; gap: 15px; border-color: #bd8093; background: #bd8093; color: #fff8f6; font: 400 14px BirthdayGummy, 'Microsoft YaHei', sans-serif; letter-spacing: .04em; white-space: nowrap; }
 .ready-message h2 { margin: 0; font: 400 clamp(35px, 8.5vw, 76px)/1.45 BirthdaySoftDisplay, BirthdayCartoon, sans-serif; }
+.ready-character { display: block; width: min(185px, 40vw); height: auto; max-height: min(26svh, 190px); margin: 0 auto 4px; object-fit: contain; filter: drop-shadow(0 9px 12px rgba(130, 80, 98, .16)); }
+.cake-characters { position: relative; z-index: 2; display: flex; align-items: flex-end; justify-content: center; gap: clamp(2px, 2vw, 16px); width: min(380px, 94vw); height: clamp(70px, 12svh, 100px); margin: -34px auto -2px; pointer-events: none; }
+.cake-characters img { display: block; width: min(31%, 105px); height: 100%; object-fit: contain; filter: drop-shadow(0 5px 6px rgba(123, 76, 92, .2)); }
+@media (min-width: 601px) { .scene--cake .cake-art { width: min(500px, 75svh); } }
+@media (max-height: 690px) { .cake-characters { height: 70px; margin-top: -40px; } }
 
 /* 飘逸手写大字作为心形纸卡背后的底图，自适应横竖屏。 */
 .scene--notes { position: relative; }

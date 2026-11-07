@@ -10,6 +10,8 @@
 
 打开页面停留在“准备好了吗？”，点击下方按钮才开始蜡烛倒数及后续动画，不再自动开始；蛋糕页的重播按钮会返回首页，等待再次点击。便签阶段点击任意一张会暂停自动翻页，并在心形中央阅读完整祝福；再点圆形箭头按钮进入绽放铺屏，随后进入蛋糕，不点击则自动前进。继续与重播均为纯图标按钮，并保留无障碍名称；页面不显示复制链接按钮。祝福文字使用随页嵌入的站酷快乐体子集，授权为 SIL Open Font License 1.1，完整版权与授权文本位于 cartoon-font.css 文件头。新增手写体与软萌展示体同样随页嵌入，授权文本位于 scene-fonts.css 文件头。系统开启“减少动态效果”时保留五个场景、减少移动效果。页面没有第三方 JS、图片或音频请求，离线预览也可运行。
 
+首页展示少司缘Q版形象，蛋糕页展示少司缘、朵莉亚、瑶三人Q版贴纸；便签尺寸再次加大。三张 `*-chibi.svg` 是参考王者荣耀官方原皮设定重新绘制的统一风格小插画，并非官方Q版原图或官方授权素材。角色名称、造型与相关知识产权归原权利人所有；仅供本页非商业生日祝福展示，不应独立转载或用于商业用途。造型核对来源：[少司缘](https://pvp.qq.com/ingame/all/tobe/newheros/0810shaosiyuan.html)、[朵莉亚](https://pvp.qq.com/ingame/all/tobe/newheros/1103duoliya.html)、[瑶](https://pvp.qq.com/web201605/herodetail/505.shtml)。
+
 ## 部署
 
 GitHub 仓库 Settings → Pages → Build and deployment → Deploy from a branch，选择 `main` 和 `/ (root)`。部署后等候公开地址出现，再用手机的移动网络打开该 HTTPS 地址验证。
