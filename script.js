@@ -94,7 +94,7 @@ function showScene(name) {
     if (scenes.notes.classList.contains('is-active')) scenes.notes.classList.add('is-building');
   }));
   progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), ready: '准备好了吗', notes: '祝福正在抵达', bloom: '把祝福送到你身边', cake: '生日快乐' }[name];
-  skipButton.hidden = name === 'cake' || name === 'candles' && !startButton.hidden;
+  skipButton.hidden = name === 'ready' || name === 'cake';
 }
 function setCandle(index) {
   candles.forEach((candle, i) => candle.classList.toggle('is-current', i === index));
@@ -344,32 +344,33 @@ function fadeToScene(name) {
   document.querySelector('.scene.is-active')?.classList.add('is-exiting');
   schedule(() => showScene(name), 230);
 }
-function play() {
+function resetToReady() {
   cancelTimeline();
   bloomAnimations.forEach(animation => animation.cancel());
   bloomAnimations = [];
-  startButton.hidden = true;
-  scenes.candles.classList.add('has-started');
+  startButton.hidden = false;
+  scenes.candles.classList.remove('has-started');
   scenes.notes.classList.remove('is-reading', 'is-assembled', 'is-building');
   document.getElementById('confetti').replaceChildren();
   document.querySelector('.note.is-selected')?.classList.remove('is-selected');
   readerLabel.textContent = '写给你';
   readerText.textContent = wishes[0][1];
-  showScene('ready');
-  skipButton.hidden = false;
   setCandle(0);
-  progressLabel.textContent = '准备好了吗';
+  showScene('ready');
+}
+function play() {
+  resetToReady();
+  startButton.hidden = true;
+  scenes.candles.classList.add('has-started');
+  fadeToScene('candles');
   if (reducedMotion.matches) {
-    schedule(() => showScene('candles'), 1800);
-    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 2900);
-    schedule(startBloom, 6300);
+    schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 1200);
+    schedule(startBloom, 4600);
     return;
   }
   const candleBeat = 1650;
-  const candleStart = 3400;
-  const candleVisible = candleStart + 230;
+  const candleVisible = 230;
   const notesStart = candleVisible + candleBeat * 3;
-  schedule(() => fadeToScene('candles'), candleStart);
   schedule(() => setCandle(1), candleVisible + candleBeat);
   schedule(() => setCandle(2), candleVisible + candleBeat * 2);
   schedule(() => fadeToScene('notes'), notesStart);
@@ -382,8 +383,7 @@ const wish = params.get('wish')?.trim().slice(0, 120);
 if (name) document.getElementById('recipient').textContent = name;
 document.getElementById('final-wish').textContent = wish || defaultWish;
 startButton.addEventListener('click', play);
-window.setTimeout(() => { if (!startButton.hidden) play(); }, 1500);
-replayButton.addEventListener('click', play);
+replayButton.addEventListener('click', resetToReady);
 document.getElementById('next-button').addEventListener('click', startBloom);
 skipButton.addEventListener('click', finish);
 

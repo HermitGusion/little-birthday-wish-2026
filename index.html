@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="./cartoon-font.css?v=12">
   <link rel="stylesheet" href="./footer-font.css?v=12">
   <link rel="stylesheet" href="./scene-fonts.css?v=9">
-  <link rel="stylesheet" href="./style.css?v=19">
-  <script src="./script.js?v=17" defer></script>
+  <link rel="stylesheet" href="./style.css?v=20">
+  <script src="./script.js?v=18" defer></script>
 </head>
 <body>
   <div class="app is-ready" id="app">
@@ -20,7 +20,7 @@
     <main class="experience" id="experience">
       <section class="scene scene--ready is-active" id="scene-ready" aria-labelledby="ready-title">
         <div id="birthday-stream" class="birthday-stream" aria-hidden="true"></div>
-        <div class="ready-message"><h2 id="ready-title">准备好了吗？</h2></div>
+        <div class="ready-message"><h2 id="ready-title">准备好了吗？</h2><button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button></div>
       </section>
       <section class="scene scene--candles" id="scene-candles" aria-labelledby="candle-title" aria-hidden="true" inert>
         <h1 class="hero-title" id="candle-title">把今天的光，<br>留给你。</h1>
@@ -43,8 +43,6 @@
           <div class="stage-caption" aria-hidden="true">烛光亮起，好事将至</div>
         </div>
         <p id="countdown-status" class="sr-only" aria-live="polite"></p>
-        <button id="start-button" class="button button--primary" type="button">点亮这份生日惊喜 <span aria-hidden="true">↗</span></button>
-        <p class="helper-text">将自动开始，也可以点一下立即开启</p>
       </section>
 
       <section class="scene scene--notes" id="scene-notes" aria-labelledby="notes-title" aria-hidden="true" inert>
