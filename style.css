@@ -396,7 +396,7 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 
 /* 飘逸手写大字作为心形纸卡背后的底图，自适应横竖屏。 */
 .scene--notes { position: relative; }
-.scene--notes .section-title { position: fixed; z-index: 0; top: 27%; left: 50%; width: 98vw; margin: 0; text-align: center; font-family: BirthdayFlow, 'Kaiti SC', serif; font-size: clamp(76px, min(25vw, 43svh), 270px); line-height: 1.3; letter-spacing: -.04em; color: #c84370; opacity: .48; white-space: nowrap; transform: translate(-50%, -50%) rotate(-8deg); pointer-events: none; }
+.scene--notes .section-title { position: fixed; z-index: 0; top: 50%; left: 50%; width: 98vw; margin: 0; text-align: center; font-family: BirthdayFlow, 'Kaiti SC', serif; font-size: clamp(76px, min(25vw, 43svh), 270px); line-height: 1.3; letter-spacing: -.04em; color: #c84370; opacity: .48; white-space: nowrap; transform: translate(-50%, -50%) rotate(-8deg); pointer-events: none; }
 .scene--notes .eyebrow, .scene--notes .scene-intro, .scene--notes .heart-board, .scene--notes .note-next { position: relative; z-index: 1; }
 .scene--notes .heart-board { margin-top: 18px; }
 @media (prefers-reduced-motion: reduce) {
