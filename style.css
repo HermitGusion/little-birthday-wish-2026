@@ -273,13 +273,13 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .app.is-notes .eyebrow { color: #a96979; }
 .scene--notes .section-title { position: relative; z-index: 0; margin: -2px 0 -4px; color: #c64669; font-size: clamp(41px, 9vw, 75px); transform: rotate(-7deg); }
 .scene--notes .scene-intro { color: #986d76; }
-.heart-board { width: min(545px, calc(100vw - 22px), 57svh); margin-block: 3px 0; }
+.heart-board { width: min(590px, calc(100vw - 16px), 60svh); margin-block: 3px 0; }
 .heart-board__glow { opacity: .32; }
 .heart-board__center { z-index: 100 !important; top: 51%; width: 43%; min-height: 88px; border: 0; border-radius: 3px; background: repeating-linear-gradient(0deg, transparent 0 13px, rgba(212,128,146,.08) 13px 14px), #fff9f4; box-shadow: 0 5px 0 #f0d0d0, 0 10px 19px rgba(126,70,87,.16); opacity: 0; transform: translate(-50%, -46%) scale(.96); transition: opacity 350ms var(--ease-out), transform 450ms var(--ease-out); pointer-events: none; }
 .scene--notes.is-assembled .heart-board__center, .scene--notes.is-reading .heart-board__center { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 .heart-board__center strong { color: #c6435c; font-size: clamp(15px, 3.5vw, 23px); }
 .heart-board__center span { color: #976b78; }
-.note, .scene--notes.is-active .note { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 10.9%; aspect-ratio: 1.06; padding: 0; border: 1px solid rgba(154,122,137,.18); border-radius: 4px; overflow: hidden; background: var(--note-bg); box-shadow: 0 3px 0 rgba(255,255,255,.85), 1px 6px 9px rgba(102,67,82,.16); opacity: 0; visibility: hidden; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 10px)) rotate(var(--enter-rotate)) scale(.96); transition: transform 260ms var(--ease-out), opacity 70ms var(--ease-out), visibility 0s linear; transition-delay: var(--delay); }
+.note, .scene--notes.is-active .note { display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start; width: 12.8%; aspect-ratio: 1.06; padding: 0; border: 1px solid rgba(154,122,137,.18); border-radius: 4px; overflow: hidden; background: var(--note-bg); box-shadow: 0 3px 0 rgba(255,255,255,.85), 1px 6px 9px rgba(102,67,82,.16); opacity: 0; visibility: hidden; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 10px)) rotate(var(--enter-rotate)) scale(.96); transition: transform 260ms var(--ease-out), opacity 70ms var(--ease-out), visibility 0s linear; transition-delay: var(--delay); }
 .note::before { display: none; }
 .scene--notes.is-building .note { visibility: visible; opacity: 1; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--rotate)) scale(1); }
 .note__bar { display: block; overflow: hidden; height: 18%; flex: none; padding: 0 2px; border-bottom: 1px solid rgba(152,101,130,.14); background: rgba(255,255,255,.46); color: #ad9aa4; font-size: clamp(5px, .75vw, 7px); line-height: 1.2; white-space: nowrap; text-align: left; }
@@ -329,9 +329,8 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
   .candle-stage { height: min(55svh, 460px); }
   .number-candle, .number-candle--two, .number-candle--one { bottom: 6%; width: 190px; height: 198px; }
   .number-candle .wax, .number-candle::after { font-size: 200px; }
-  .heart-board { width: min(calc(100vw - 16px), 53svh); }
-  .note__bar { font-size: 5px; }
-  .note__body { font-size: 8px; }
+  .heart-board { width: min(calc(100vw - 12px), 57svh); }
+  .note__bar { font-size: 6px; }
   .note-reader { min-height: 80px; }
   .cake-art { width: min(390px, 98vw); }
   .blessing-field { inset: -10% -4%; }
@@ -379,7 +378,7 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .heart-board__center span, .heart-board__center .heart-board__tiny, .scene--notes .eyebrow, .scene--notes .scene-intro, .note__bar { font-family: BirthdayGummy, 'Arial Rounded MT Bold', sans-serif; font-weight: 400; }
 .heart-board__center .heart-board__tiny { font-style: normal; }
 .scene--cake .final-title #recipient { color: inherit; }
-.note__body { font-size: clamp(7px, 1.6vw, 10px); letter-spacing: 0; }
+.note__body { font-size: clamp(10px, 2.5vw, 13px); letter-spacing: 0; }
 .note-reader__label { font-size: clamp(12px, 2.9vw, 15px); }
 .note-reader p { font-size: clamp(12px, 3.1vw, 15px); line-height: 1.7; }
 .candle-celebration { position: absolute; inset: 0; pointer-events: none; }
@@ -412,7 +411,6 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .ready-message::before { content: ''; position: absolute; z-index: -1; inset: -35px -60px; background: radial-gradient(ellipse, rgba(255,243,235,.98), rgba(255,239,232,.85) 45%, transparent 72%); }
 .ready-message p { margin: 0 0 15px; font: 400 14px BirthdayGummy, sans-serif; letter-spacing: .12em; }
 .ready-message h2 { margin: 0; font: 400 clamp(35px, 8.5vw, 76px)/1.45 BirthdaySoftDisplay, BirthdayCartoon, sans-serif; }
-.ready-message > span { display: inline-block; margin-top: 16px; color: #dba473; font-size: 23px; }
 
 /* 飘逸手写大字作为心形纸卡背后的底图，自适应横竖屏。 */
 .scene--notes { position: relative; }
@@ -420,9 +418,9 @@ button:focus-visible { outline: 3px solid #a55276; outline-offset: 4px; }
 .scene--notes .eyebrow, .scene--notes .scene-intro, .scene--notes .heart-board, .scene--notes .note-next { position: relative; z-index: 1; }
 .scene--notes .heart-board { margin-top: 18px; }
 .finger-heart { display: inline-block; width: 1.4em; height: 1.42em; margin-left: .08em; vertical-align: -.3em; overflow: visible; stroke-linejoin: round; stroke-linecap: round; transform: scale(1.28); transform-origin: center; }
-.finger-heart__heart { fill: #ed665c; stroke: #96525a; stroke-width: 1.8; }
-.finger-heart__hand { fill: #f9d8c9; stroke: #935e5d; stroke-width: 1.8; }
-.finger-heart__fold { fill: none; stroke: #c79a91; stroke-width: 1.4; }
+.finger-heart__heart { fill: #bd8093; stroke: #a16d80; stroke-width: 1.8; }
+.finger-heart__hand { fill: #f6dfd8; stroke: #a77b84; stroke-width: 1.8; }
+.finger-heart__fold { fill: none; stroke: #c9a2a7; stroke-width: 1.4; }
 
 /* 同一束奶油玫瑰色的光贯穿五幕，场景只淡入淡出，不切换黑白底。 */
 body, .app, .app.is-finale { background: #f8e7e1; color: #794c5a; }
