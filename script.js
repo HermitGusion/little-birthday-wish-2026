@@ -51,7 +51,7 @@ const wishes = [
   ['永远被爱', '愿你无论走到哪一站，都知道有人惦记你，也要记得先好好爱自己。']
 ];
 const defaultWish = '愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，闪闪发光。';
-const scenes = { candles: document.getElementById('scene-candles'), ready: document.getElementById('scene-ready'), notes: document.getElementById('scene-notes'), cake: document.getElementById('scene-cake') };
+const scenes = { candles: document.getElementById('scene-candles'), ready: document.getElementById('scene-ready'), notes: document.getElementById('scene-notes'), bloom: document.getElementById('scene-bloom'), cake: document.getElementById('scene-cake') };
 const app = document.getElementById('app');
 const heartBoard = document.getElementById('heart-board');
 const noteContainer = document.getElementById('notes-container');
@@ -87,12 +87,13 @@ function showScene(name) {
   app.classList.toggle('is-finale', name === 'cake');
   app.classList.toggle('is-notes', name === 'notes');
   app.classList.toggle('is-ready', name === 'ready');
-  document.querySelector('meta[name="theme-color"]').content = name === 'notes' || name === 'ready' ? '#f8e5e0' : '#171b24';
+  app.classList.toggle('is-bloom', name === 'bloom');
+  document.querySelector('meta[name="theme-color"]').content = '#f8e7e1';
   document.querySelectorAll('.scene.is-exiting').forEach(scene => scene.classList.remove('is-exiting'));
   if (name === 'notes') requestAnimationFrame(() => requestAnimationFrame(() => {
     if (scenes.notes.classList.contains('is-active')) scenes.notes.classList.add('is-building');
   }));
-  progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), ready: '准备好了吗', notes: '祝福正在抵达', cake: '生日快乐' }[name];
+  progressLabel.textContent = { candles: '倒数 · ' + (document.querySelector('.number-candle.is-current')?.dataset.number || '3'), ready: '准备好了吗', notes: '祝福正在抵达', bloom: '把祝福送到你身边', cake: '生日快乐' }[name];
   skipButton.hidden = name === 'cake' || name === 'candles' && !startButton.hidden;
 }
 function setCandle(index) {
@@ -271,9 +272,71 @@ function makeConfetti() {
 }
 function finish() {
   cancelTimeline();
+  bloomAnimations.forEach(animation => animation.cancel());
+  bloomAnimations = [];
   showScene('cake');
   if (!reducedMotion.matches) schedule(makeConfetti, 3350);
 }
+
+// 纸卡沿用心形的起点，绽放到覆盖视口的交错位置；布局只在进入和调整屏幕时计算。
+const bloomBoard = document.getElementById('bloom-board');
+const bloomCards = wishes.map(([label, message], i) => {
+  const card = document.createElement('article');
+  card.className = 'bloom-note';
+  const title = document.createElement('strong');
+  title.textContent = label;
+  const body = document.createElement('p');
+  body.textContent = message;
+  card.append(title, body);
+  card.style.backgroundColor = colors[i % colors.length];
+  bloomBoard.append(card);
+  return card;
+});
+let bloomAnimations = [];
+let bloomOrigins = [];
+function layoutBloom(animate = false) {
+  const width = window.innerWidth, height = window.innerHeight;
+  const columns = width < 600 ? 4 : width < 1000 ? 6 : 8;
+  const rows = Math.ceil(bloomCards.length / columns);
+  const cellW = width / (columns - .4), cellH = height / (rows - .4);
+  bloomCards.forEach((card, i) => {
+    const col = i % columns, row = Math.floor(i / columns);
+    const x = (col - .16 + (row % 2 ? .14 : -.08)) * cellW;
+    const y = (row - .16) * cellH;
+    const angle = [-5, 3, -2, 5, -3, 1][i % 6];
+    card.style.width = `${cellW * 1.2}px`;
+    card.style.height = `${cellH * 1.3}px`;
+    const target = `translate3d(${x}px,${y}px,0) rotate(${angle}deg)`;
+    card.style.transform = target;
+    if (animate) {
+      const origin = bloomOrigins[i] || { x: width / 2, y: height / 2, width: 70, angle: 0 };
+      const scale = Math.max(.3, Math.min(1, origin.width / (cellW * 1.2)));
+      const start = `translate3d(${origin.x}px,${origin.y}px,0) rotate(${origin.angle}deg) scale(${scale})`;
+      const delay = Math.hypot(col - (columns - 1) / 2, row - (rows - 1) / 2) * 65 + i % 3 * 25;
+      bloomAnimations.push(card.animate([{ transform: start, opacity: 1 }, { transform: target, opacity: 1 }], { duration: 1450, delay, easing: 'cubic-bezier(.23,1,.32,1)', fill: 'both' }));
+    }
+  });
+}
+function startBloom() {
+  cancelTimeline();
+  bloomAnimations.forEach(animation => animation.cancel());
+  bloomAnimations = [];
+  const onHeart = scenes.notes.classList.contains('is-active');
+  bloomOrigins = onHeart ? [...noteContainer.children].map((note) => {
+    const box = note.getBoundingClientRect();
+    return { x: box.x, y: box.y, width: box.width, angle: parseFloat(note.style.getPropertyValue('--rotate')) || 0 };
+  }) : [];
+  showScene('bloom');
+  layoutBloom(!reducedMotion.matches);
+  schedule(() => fadeToScene('cake'), reducedMotion.matches ? 2400 : 4900);
+  if (!reducedMotion.matches) schedule(makeConfetti, 8600);
+}
+window.addEventListener('resize', () => {
+  if (!scenes.bloom.classList.contains('is-active')) return;
+  bloomAnimations.forEach(animation => animation.cancel());
+  bloomAnimations = [];
+  layoutBloom(false);
+});
 function fadeToScene(name) {
   if (reducedMotion.matches) { showScene(name); return; }
   document.querySelector('.scene.is-active')?.classList.add('is-exiting');
@@ -281,6 +344,8 @@ function fadeToScene(name) {
 }
 function play() {
   cancelTimeline();
+  bloomAnimations.forEach(animation => animation.cancel());
+  bloomAnimations = [];
   startButton.hidden = true;
   scenes.candles.classList.add('has-started');
   scenes.notes.classList.remove('is-reading', 'is-assembled', 'is-building');
@@ -295,7 +360,7 @@ function play() {
   if (reducedMotion.matches) {
     schedule(() => showScene('candles'), 1800);
     schedule(() => { showScene('notes'); scenes.notes.classList.add('is-assembled'); }, 2900);
-    schedule(finish, 6300);
+    schedule(startBloom, 6300);
     return;
   }
   const candleBeat = 1650;
@@ -307,8 +372,7 @@ function play() {
   schedule(() => setCandle(2), candleVisible + candleBeat * 2);
   schedule(() => fadeToScene('notes'), notesStart);
   schedule(() => scenes.notes.classList.add('is-assembled'), notesStart + 4160);
-  schedule(() => fadeToScene('cake'), notesStart + 7360);
-  schedule(makeConfetti, notesStart + 11060);
+  schedule(startBloom, notesStart + 7360);
 }
 const params = new URLSearchParams(window.location.search);
 const name = params.get('name')?.trim().slice(0, 12);
@@ -318,6 +382,6 @@ document.getElementById('final-wish').textContent = wish || defaultWish;
 startButton.addEventListener('click', play);
 window.setTimeout(() => { if (!startButton.hidden) play(); }, 1500);
 replayButton.addEventListener('click', play);
-document.getElementById('next-button').addEventListener('click', finish);
+document.getElementById('next-button').addEventListener('click', startBloom);
 skipButton.addEventListener('click', finish);
 

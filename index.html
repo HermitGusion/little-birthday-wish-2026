@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-  <meta name="theme-color" content="#f8e5e0">
+  <meta name="theme-color" content="#f8e7e1">
   <meta name="description" content="数字蜡烛倒数、祝福便利贴组成心形，满屏祝福中绘出生日蛋糕。">
   <title>生日快乐 · 把所有祝福送给你</title>
   <link rel="stylesheet" href="./cartoon-font.css?v=12">
   <link rel="stylesheet" href="./footer-font.css?v=12">
   <link rel="stylesheet" href="./scene-fonts.css?v=9">
-  <link rel="stylesheet" href="./style.css?v=13">
-  <script src="./script.js?v=13" defer></script>
+  <link rel="stylesheet" href="./style.css?v=14">
+  <script src="./script.js?v=14" defer></script>
 </head>
 <body>
   <div class="app is-ready" id="app">
@@ -49,16 +49,21 @@
 
       <section class="scene scene--notes" id="scene-notes" aria-labelledby="notes-title" aria-hidden="true" inert>
         <div class="eyebrow">写给今天的你</div>
-        <h2 id="notes-title" class="section-title">生日快乐</h2>
+        <div class="notes-backdrop"><h2 id="notes-title" class="section-title">生日快乐</h2><p lang="en">Happy Birthday</p></div>
         <p class="scene-intro">这些话，想留给你。</p>
         <div id="heart-board" class="heart-board" aria-label="许多祝福便利贴逐渐拼成的心形">
           <div class="heart-board__glow" aria-hidden="true"></div>
-          <div class="heart-board__center"><span>写给特别的你</span><strong>生日快乐 ♡</strong><span class="heart-board__tiny">with all my love</span></div>
+          <div class="heart-board__center"><span>写给特别的你</span><strong>生日快乐 ♡</strong><span class="heart-board__tiny" lang="en">Happy Birthday</span></div>
           <div id="notes-container" class="notes-container"></div>
           <div class="note-reader"><span id="note-reader-label" class="note-reader__label">写给你</span><p id="note-reader-text" aria-live="polite">愿你在新的一岁里，走过的路都有风景，遇见的人都带着善意。</p></div>
           <span class="heart-board__spark heart-board__spark--one" aria-hidden="true">✧</span><span class="heart-board__spark heart-board__spark--two" aria-hidden="true">✦</span>
         </div>
-        <button id="next-button" class="button button--outline note-next icon-button" type="button" aria-label="继续看生日蛋糕" title="继续看生日蛋糕"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+        <button id="next-button" class="button button--outline note-next icon-button" type="button" aria-label="展开全屏祝福" title="展开全屏祝福"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+      </section>
+
+      <section class="scene scene--bloom" id="scene-bloom" aria-labelledby="bloom-title" aria-hidden="true" inert>
+        <h2 id="bloom-title" class="sr-only">祝福便利签绽放，铺满整个屏幕</h2>
+        <div id="bloom-board" class="bloom-board"></div>
       </section>
 
       <section class="scene scene--cake" id="scene-cake" aria-labelledby="cake-title" aria-hidden="true" inert>
@@ -82,7 +87,7 @@
           </svg>
           <span class="cake-art__flame" aria-hidden="true"></span><div id="confetti" class="confetti" aria-hidden="true"></div>
         </div>
-        <div class="cake-message"><span class="script-label">Happy Birthday!</span><h2 id="cake-title" class="final-title"><span id="recipient">傅雪妍</span>，生日快乐<svg class="finger-heart" viewBox="0 0 44 48" role="img" aria-label="比心"><path d="M25 9C19 4 12 10 16 15L25 22L34 15C39 9 31 4 25 9Z" fill="#efa1b9"/><g fill="#f7d9bd" stroke="#8e6161" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 43L8 31Q7 27 10 26Q13 25 15 31L14 18Q14 14 17 14Q20 14 20 18L22 28L25 18Q26 14 29 15Q32 16 30 20L27 31Q33 24 36 29Q38 33 32 39L28 44Z"/><path d="M20 28L25 31M15 31L19 34"/></g></svg></h2>
+        <div class="cake-message"><span class="script-label">Happy Birthday!</span><h2 id="cake-title" class="final-title"><span id="recipient">傅雪妍</span>，生日快乐<svg class="finger-heart" viewBox="0 0 44 48" role="img" aria-label="比心"><g fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M25 9C19 4 12 10 16 15L25 22L34 15C39 9 31 4 25 9Z"/><path d="M11 43L8 31Q7 27 10 26Q13 25 15 31L14 20Q14 16 17 16Q20 16 20 20L22 29L25 21Q26 18 29 19Q32 20 30 24L27 32Q33 26 36 30Q38 34 32 40L28 44M20 29L25 32M15 31L19 35"/></g></svg></h2>
           <p id="final-wish" class="final-wish">愿你在新的一岁里，能去见想见的人，去做想做的事。忙的时候记得休息，开心的时候尽情笑。愿你往后的日子，身边有爱，心中有盼，闪闪发光。</p>
           <div class="cake-actions"><button id="replay-button" class="button button--primary icon-button" type="button" aria-label="重新播放生日祝福" title="重新播放生日祝福"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 10a8 8 0 1 1 1.5 7M4 4v6h6"/></svg></button></div>
         </div>
